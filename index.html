@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>마장초 온라인 전시관</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap">
+<!--
+  마장초 온라인 전시관 — 첫 화면(원형) 모델
+  전시관 내부는 아직 만들지 않았습니다. 원을 누르면 '준비 중' 화면이 나옵니다.
+  이전 시안은 보관 폴더에 있습니다. (A안_사각형_내부포함.html / B안_원형_내부포함.html)
+-->
+<style>
+  :root {
+    --bg: #0a0e1c;
+    --ink: #ffffff;
+    --ink-2: rgba(255,255,255,.68);
+    --ink-3: rgba(255,255,255,.42);
+    --glass: rgba(255,255,255,.06);
+    --glass-2: rgba(255,255,255,.1);
+    --glass-line: rgba(255,255,255,.12);
+    --display: "Outfit", "Pretendard", sans-serif;
+    --g1: #4f7cff; --g2: #35d0ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: clamp(16px, calc(0.8vmin + 0.55vmax), 28px); }
+  html, body { height: 100%; }
+  body {
+    font-family: "Pretendard", system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation; overflow: hidden; word-break: keep-all;
+  }
+  button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; text-align: left; }
+  svg { display: block; }
+
+  /* ---------- 배경 ---------- */
+  .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .orb { position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: .5; animation: drift 26s ease-in-out infinite alternate; }
+  .orb.a { background: radial-gradient(circle, rgba(79,124,255,.5), transparent 62%); left: -28vmax; top: -32vmax; }
+  .orb.b { background: radial-gradient(circle, rgba(255,90,140,.34), transparent 62%); right: -32vmax; top: 8vmax; animation-duration: 32s; }
+  .orb.c { background: radial-gradient(circle, rgba(47,211,154,.28), transparent 62%); left: 8vmax; bottom: -46vmax; animation-duration: 38s; }
+  @keyframes drift { to { transform: translate(6vmax, 4vmax) scale(1.08); } }
+  .grain { position: absolute; inset: 0; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  #app { position: relative; z-index: 1; height: 100%; }
+  .rise { animation: rise .8s cubic-bezier(.2,.75,.2,1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+  .pop { animation: pop .9s cubic-bezier(.2,.8,.25,1) both; animation-delay: calc(var(--i, 0) * 110ms); }
+  @keyframes pop { from { opacity: 0; transform: scale(.82); } }
+  .press { transition: transform .25s cubic-bezier(.2,.75,.2,1); }
+  .press:active { transform: scale(.94); }
+  .grad-text { background: linear-gradient(100deg, #8fb0ff, #6ee7ff 40%, #ff9ac1 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ---------- 첫 화면 ---------- */
+  .home { height: 100%; display: flex; flex-direction: column; padding: .8rem 1.4rem 1rem; }
+  .strip { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-shrink: 0; }
+  .chip { display: inline-flex; align-items: center; gap: .6rem; padding: .55rem 1.1rem; border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); font-family: var(--display); font-size: .85rem; font-weight: 500; letter-spacing: .14em; color: var(--ink-2); }
+  .chip i { width: .55rem; height: .55rem; border-radius: 50%; background: #6ee7ff; box-shadow: 0 0 12px #6ee7ff; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .site-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: 0 1.1rem 0 1.2rem; border-radius: 999px; background: var(--glass-2); border: 1px solid var(--glass-line); font-size: .95rem; font-weight: 700; color: var(--ink-2); }
+  .site-btn svg { width: 1.2rem; height: 1.2rem; }
+
+  /* 원 크기는 화면에 맞춰 JS가 계산합니다 (layoutOrbit) */
+  .stage { flex: 1; position: relative; display: grid; place-items: center; min-height: 0;
+           --rx: 22rem; --ry: 14rem; --bs: 13rem; --cs: 16rem; --bf: 1.5rem; --bi: 2.6rem; --cf: 1.7rem; }
+  .ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; border: 1px dashed rgba(255,255,255,.16);
+          width: calc(var(--rx) * 2); height: calc(var(--ry) * 2); transform: translate(-50%, -50%); animation: glowRing 8s ease-in-out infinite; }
+  .ring.r2 { width: calc(var(--rx) * 2.22); height: calc(var(--ry) * 2.3); border-style: solid; border-color: rgba(255,255,255,.06); animation-delay: 2s; }
+  @keyframes glowRing { 50% { border-color: rgba(255,255,255,.26); } }
+
+  .core {
+    position: relative; width: var(--cs); height: var(--cs); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .3rem;
+    padding: calc(var(--cs) * .1);
+    background: radial-gradient(circle at 32% 26%, #1b2440, #0b1020 70%);
+    border: 1px solid var(--glass-line);
+    box-shadow: 0 0 130px -22px rgba(79,124,255,.95), inset 0 0 70px rgba(255,255,255,.06), 0 0 0 14px rgba(255,255,255,.03);
+  }
+  .core h1 { font-size: var(--cf); font-weight: 800; line-height: 1.34; letter-spacing: -.02em; }
+  .core .hl { display: block; }
+  .core-site {
+    text-decoration: none; cursor: pointer;
+    margin-top: calc(var(--cf) * .55); display: inline-flex; align-items: center; gap: .45em;
+    padding: .7em 1.1em; border-radius: 999px; font-size: calc(var(--cf) * .46); font-weight: 700;
+    background: var(--glass-2); border: 1px solid var(--glass-line); color: var(--ink-2);
+  }
+  .core-site svg { width: 1.2em; height: 1.2em; }
+  .core-note { margin-top: .5em; font-size: calc(var(--cf) * .34); color: var(--ink-3); }
+
+  .bubble {
+    position: absolute; left: 50%; top: 50%;
+    width: var(--bs); height: var(--bs); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .2rem; text-align: center;
+    padding: calc(var(--bs) * .12);
+    background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%);
+    box-shadow: 0 26px 70px -18px var(--g1), inset 0 -16px 38px rgba(0,0,0,.2);
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform .45s cubic-bezier(.2,.8,.25,1), box-shadow .45s;
+  }
+  .bubble::after { content: ""; position: absolute; inset: calc(var(--bs) * -.06); border-radius: 50%; border: 1px solid rgba(255,255,255,.22); }
+  .bubble:hover { transform: translate(-50%, -50%) scale(1.035); }
+  .bubble:active, .bubble.tapped { transform: translate(-50%, -50%) scale(1.07); box-shadow: 0 34px 90px -16px var(--g1); }
+  .bubble .no { font-family: var(--display); font-size: calc(var(--bf) * .62); font-weight: 700; letter-spacing: .16em; opacity: .9; }
+  .bubble .ic { width: var(--bi); height: var(--bi); opacity: .95; }
+  .bubble h2 { margin-top: .1rem; font-size: var(--bf); font-weight: 800; letter-spacing: -.02em; line-height: 1.22; }
+  .bubble .en { margin-top: .15rem; font-family: var(--display); font-size: calc(var(--bf) * .42); font-weight: 700; letter-spacing: .18em; opacity: .85; }
+
+  .foot { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-top: .3rem; }
+  .foot .hint { font-size: .9rem; color: var(--ink-3); }
+
+  /* 원이 펼쳐지며 화면을 채우는 전환 */
+  .reveal { position: fixed; z-index: 20; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%);
+    transform: translate(-50%, -50%) scale(1); opacity: 1;
+    transition: transform .6s cubic-bezier(.45,.05,.2,1), opacity .45s ease .05s; }
+
+  /* ---------- 준비 중 화면 (내부는 아직 만들지 않았습니다) ---------- */
+  #inner { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; background: var(--bg);
+           animation: innerIn .5s cubic-bezier(.2,.8,.25,1) both; }
+  #inner[hidden] { display: none; }
+  #inner.leaving { animation: innerOut .35s ease forwards; }
+  @keyframes innerIn { from { opacity: 0; transform: scale(1.03); } }
+  @keyframes innerOut { to { opacity: 0; transform: scale(1.02); } }
+  .ibar { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 1.6rem; background: linear-gradient(135deg, var(--g1), var(--g2)); flex-shrink: 0; }
+  .pill-btn { display: inline-flex; align-items: center; gap: .6rem; min-height: 4rem; padding: 0 1.6rem 0 1.2rem; border-radius: 999px; font-size: 1.2rem; font-weight: 800; background: rgba(10,14,28,.28); border: 1px solid rgba(255,255,255,.35); color: #fff; }
+  .pill-btn svg { width: 1.5rem; height: 1.5rem; }
+  .ibar .t small { display: block; font-family: var(--display); font-size: .9rem; font-weight: 700; letter-spacing: .18em; opacity: .85; }
+  .ibar .t strong { display: block; font-size: 1.5rem; font-weight: 800; }
+  .ibody { flex: 1; min-height: 0; display: flex; position: relative; }
+  .loading { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+             background: var(--bg); font-size: 1.2rem; font-weight: 600; color: var(--ink-2); }
+  .spin { width: 3.4rem; height: 3.4rem; border-radius: 50%; border: 5px solid var(--glass-line); border-top-color: var(--g2); animation: spinner 1s linear infinite; }
+  @keyframes spinner { to { transform: rotate(360deg); } }
+  .ibody iframe { flex: 1; width: 100%; height: 100%; border: 0; background: #fff; }
+  .soon { margin: auto; text-align: center; padding: 2rem; }
+  .soon .glow { width: 9rem; height: 9rem; margin: 0 auto 1.8rem; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%); box-shadow: 0 0 90px -10px var(--g1); animation: breathe 3s ease-in-out infinite; }
+  .soon .glow svg { width: 4rem; height: 4rem; }
+  @keyframes breathe { 50% { transform: scale(1.06); } }
+  .soon h2 { font-size: 2.4rem; font-weight: 800; }
+  .soon p { margin-top: .7rem; font-size: 1.15rem; color: var(--ink-2); line-height: 1.6; }
+
+  /* ---------- 세로로 세운 스탠바이미 ---------- */
+  @media (orientation: portrait) {
+    .foot { padding-top: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="bg"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div><div class="grain"></div></div>
+<div id="app"></div>
+
+<div id="inner" hidden>
+  <div class="ibar">
+    <button class="pill-btn press" id="iback"></button>
+    <div class="t"><small id="ien"></small><strong id="ititle"></strong></div>
+  </div>
+  <div class="ibody" id="ibody"></div>
+</div>
+
+<script>
+/* =====================================================================
+   ✏️ 첫 화면 설정
+   name  : 전시관 이름 (<br> 을 넣으면 그 자리에서 줄이 바뀝니다)
+   en    : 원 아래 영문 이름
+   colors: 원 색깔 [시작색, 끝색]
+   icon  : school · lesson · people · play
+   ===================================================================== */
+const EXHIBIT = {
+  school: '마장초등학교',
+  titleLines: ['마장초', 'AI 디지털 활용', '연구학교'],   // 줄을 나누어 적으세요
+  titleHighlight: '한눈에 보기',
+  // 연구학교 홈페이지 (가운데 원 안의 버튼)
+  // ※ 구글 사이트는 다른 페이지 안에 넣는 것이 막혀 있어 새 창으로 열립니다.
+  siteUrl: 'https://sites.google.com/view/majangcho26/home',
+  siteLabel: '연구학교 홈페이지',
+  siteNewTab: true,
+  halls: [
+    { id: 'intro',   name: '연구학교<br>소개관',        en: 'ABOUT',     colors: ['#3d5afe', '#29c6ff'], icon: 'school' },
+    { id: 'class',   name: 'High AI, Hi 5<br>수업관',   en: 'CLASSROOM', colors: ['#ff7a2f', '#ff4d8d'], icon: 'lesson' },
+    // url 을 적으면 원을 눌렀을 때 그 사이트가 전시관 안에서 바로 열립니다.
+    { id: 'teacher', name: '교사 역량<br>강화관',        en: 'TEACHERS',  colors: ['#10b981', '#22d3c5'], icon: 'people',
+      url: 'https://padlet.com/embed/s023leshyly7poik17fj' },   // AI 에듀테크 교사 동아리 패들렛
+    { id: 'video',   name: '영상관',                    en: 'VIDEO',     colors: ['#7c4dff', '#d946ef'], icon: 'play' },
+  ],
+};
+/* ===================================================================== */
+
+const ICONS = {
+  school: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/>',
+  lesson: '<path d="M3 5h18v11H3z"/><path d="M8 20h8M12 16v4M7 9h6M7 12h4"/>',
+  people: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.2 5 2.6 5 5.8"/>',
+  play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  arrow: '<path d="M7 17L17 7M9 7h8v8"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+};
+const icon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
+const app = document.getElementById('app');
+const pad = n => String(n).padStart(2, '0');
+const plain = s => s.replace(/<br\s*\/?>/gi, ' ');
+const hallVars = h => `--g1:${h.colors[0]};--g2:${h.colors[1]}`;
+const hallById = id => EXHIBIT.halls.find(h => h.id === id);
+const ANGLES = ['-135deg', '-45deg', '135deg', '45deg']; // 왼위 · 오른위 · 왼아래 · 오른아래
+
+function route() {
+  const id = location.hash.slice(1);
+  if (!document.querySelector('.home')) renderHome();
+  if (id === 'site') return openInner(
+    { name: EXHIBIT.siteLabel, en: 'HOMEPAGE', colors: ['#3b4a6b', '#5b6f9a'], icon: 'globe' }, EXHIBIT.siteUrl);
+  const hall = hallById(id);
+  if (hall) return openInner(hall, hall.url || '');
+  closeInner();
+}
+window.addEventListener('hashchange', route);
+
+function renderHome() {
+  app.innerHTML = `
+    <div class="home">
+      <div class="strip rise">
+        <div class="chip"><i></i>ONLINE EXHIBITION · ${EXHIBIT.school}</div>
+      </div>
+      <div class="stage">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="core pop">
+          <h1>${EXHIBIT.titleLines.join('<br>')}<span class="hl grad-text">${EXHIBIT.titleHighlight}</span></h1>
+          ${EXHIBIT.siteUrl && EXHIBIT.siteNewTab
+            ? `<a class="core-site press" href="${EXHIBIT.siteUrl}" target="_blank" rel="noopener">${EXHIBIT.siteLabel}${icon('arrow')}</a>`
+            : `<button class="core-site press" data-go="site">${EXHIBIT.siteLabel}${icon('arrow')}</button>`}
+          ${EXHIBIT.siteUrl && EXHIBIT.siteNewTab ? '<div class="core-note">새 창에서 열립니다</div>' : ''}
+        </div>
+        ${EXHIBIT.halls.map((h, i) => `
+          <button class="bubble press pop" style="${hallVars(h)};--a:${ANGLES[i]};--i:${i + 1}" data-go="${h.id}">
+            <span class="no">${pad(i + 1)}</span>
+            <span class="ic">${icon(h.icon)}</span>
+            <h2>${h.name}</h2>
+            <span class="en">${h.en}</span>
+          </button>`).join('')}
+      </div>
+      <div class="foot rise" style="--i:5">
+        <div class="hint">원을 눌러 전시관에 들어가 보세요</div>
+      </div>
+    </div>`;
+  layoutOrbit();
+}
+
+/* 화면을 꽉 채우도록 — 전시관 원을 네 귀퉁이로 벌리고, 가운데 원을 최대한 크게 */
+function layoutOrbit() {
+  const st = document.querySelector('.stage');
+  if (!st || !st.clientHeight) return;
+  const W = st.clientWidth, H = st.clientHeight, landscape = W > H;
+  const bubble = landscape ? Math.min(H * 0.42, W * 0.24) : Math.min(W * 0.42, H * 0.24);
+  // 1에 가까울수록 원이 바깥으로 벌어집니다 (가로 화면은 좌우로 덜 벌어지게)
+  const SPREAD_X = landscape ? 0.78 : 0.97, SPREAD_Y = landscape ? 0.94 : 0.92;
+  const rx = (W / 2 - bubble / 2 - W * 0.025) * SPREAD_X;   // 가로 반지름
+  const ry = (H / 2 - bubble / 2 - H * 0.015) * SPREAD_Y;   // 세로 반지름
+  const gap = Math.min(W, H) * 0.03;
+  const dist = Math.hypot(rx, ry);
+  const core = Math.min(H * 0.52, W * 0.62, (dist - bubble / 2 - gap) * 2);
+
+  st.style.setProperty('--rx', rx + 'px');
+  st.style.setProperty('--ry', ry + 'px');
+  st.style.setProperty('--bs', bubble + 'px');
+  st.style.setProperty('--cs', core + 'px');
+  st.style.setProperty('--bf', bubble * 0.115 + 'px');  // 전시관 이름 글자
+  st.style.setProperty('--bi', bubble * 0.16 + 'px');   // 아이콘
+  st.style.setProperty('--cf', Math.min(core * 0.105, H * 0.062) + 'px'); // 가운데 글자
+
+  // 왼위 · 오른위 · 왼아래 · 오른아래
+  const spots = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
+  st.querySelectorAll('.bubble').forEach((el, i) => {
+    el.style.left = `calc(50% + ${spots[i][0] * rx}px)`;
+    el.style.top = `calc(50% + ${spots[i][1] * ry}px)`;
+  });
+}
+window.addEventListener('resize', () => { clearTimeout(window._ot); window._ot = setTimeout(layoutOrbit, 150); });
+window.addEventListener('orientationchange', () => setTimeout(layoutOrbit, 300));
+// 화면(무대) 크기가 바뀌면 언제든 다시 계산
+if (window.ResizeObserver) {
+  const ro = new ResizeObserver(() => layoutOrbit());
+  const watch = () => { const st = document.querySelector('.stage'); if (st) ro.observe(st); };
+  setTimeout(watch, 0);
+}
+
+/* ---------- 전시관 내부: 아직 준비 중 ---------- */
+const inner = document.getElementById('inner');
+const ibody = document.getElementById('ibody');
+
+function openInner(hall, url) {
+  inner.setAttribute('style', hallVars(hall));
+  document.getElementById('iback').innerHTML = `${icon('back')}처음으로`;
+  document.getElementById('iback').onclick = () => { location.hash = ''; };
+  document.getElementById('ien').textContent = hall.en;
+  document.getElementById('ititle').textContent = plain(hall.name);
+  ibody.innerHTML = url
+    ? `<div class="loading" id="iloading"><div class="spin"></div>불러오는 중…</div>
+       <iframe src="${url}" allow="fullscreen; clipboard-write" allowfullscreen
+               onload="setTimeout(()=>document.getElementById('iloading')?.remove(), 1200)"></iframe>`
+    : `<div class="soon">
+         <div class="glow">${icon(hall.icon)}</div>
+         <h2>${plain(hall.name)}</h2>
+         <p>전시 내용을 준비하고 있어요.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
+       </div>`;
+  inner.hidden = false;
+}
+
+function closeInner() {
+  if (inner.hidden) return;
+  inner.classList.add('leaving');
+  setTimeout(() => {
+    inner.classList.remove('leaving');
+    inner.hidden = true;
+    ibody.innerHTML = '';
+  }, 320);
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go]');
+  if (!t) return;
+  const hall = hallById(t.dataset.go);
+  if (t.classList.contains('bubble') && hall) return revealInto(t, hall);
+  location.hash = t.dataset.go;
+});
+
+/* 누른 원이 커지며 화면을 덮은 뒤 전시관으로 들어갑니다 */
+function revealInto(el, hall) {
+  el.classList.add('tapped');
+  const r = el.getBoundingClientRect();
+  const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const far = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
+  const d = document.createElement('div');
+  d.className = 'reveal';
+  d.setAttribute('style', `${hallVars(hall)};left:${cx}px;top:${cy}px;width:${r.width}px;height:${r.height}px`);
+  document.body.appendChild(d);
+  requestAnimationFrame(() => {
+    d.style.transform = `translate(-50%, -50%) scale(${(far * 2.1) / r.width})`;
+  });
+  setTimeout(() => {
+    location.hash = hall.id;
+    el.classList.remove('tapped');
+    requestAnimationFrame(() => { d.style.opacity = '0'; });
+    setTimeout(() => d.remove(), 500);
+  }, 430);
+}
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+document.fonts.ready.then(route);
+</script>
+</body>
+</html>
