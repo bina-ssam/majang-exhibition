@@ -116,6 +116,7 @@
   .spin { width: 3.4rem; height: 3.4rem; border-radius: 50%; border: 5px solid var(--glass-line); border-top-color: var(--g2); animation: spinner 1s linear infinite; }
   @keyframes spinner { to { transform: rotate(360deg); } }
   .ibody iframe { flex: 1; width: 100%; height: 100%; border: 0; background: #fff; }
+  .ibody.dark, .ibody.dark iframe { background: #000; }
   .soon { margin: auto; text-align: center; padding: 2rem; }
   .soon .glow { width: 9rem; height: 9rem; margin: 0 auto 1.8rem; border-radius: 50%; display: grid; place-items: center;
     background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%); box-shadow: 0 0 90px -10px var(--g1); animation: breathe 3s ease-in-out infinite; }
@@ -169,7 +170,9 @@ const EXHIBIT = {
     // url 을 적으면 원을 눌렀을 때 그 사이트가 전시관 안에서 바로 열립니다.
     { id: 'teacher', name: '교사 역량<br>강화관',        en: 'TEACHERS',  desc: '함께 배우고 나누며 성장한 선생님들의 기록',  colors: ['#10b981', '#22d3c5'], icon: 'people',
       url: 'https://padlet.com/embed/s023leshyly7poik17fj' },   // AI 에듀테크 교사 동아리 패들렛
-    { id: 'video',   name: '영상관',                    en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',     colors: ['#7c4dff', '#d946ef'], icon: 'play' },
+    // 2025 마장초등학교 교육활동 홍보영상 (연구학교 사이트에 올라와 있는 영상)
+    { id: 'video',   name: '영상관',                    en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',     colors: ['#7c4dff', '#d946ef'], icon: 'play',
+      url: 'https://www.youtube-nocookie.com/embed/sIxWlQljAe4?rel=0&playsinline=1', dark: true },
   ],
 };
 /* ===================================================================== */
@@ -237,6 +240,7 @@ const ibody = document.getElementById('ibody');
 
 function openInner(hall, url) {
   inner.setAttribute('style', hallVars(hall));
+  ibody.classList.toggle('dark', !!hall.dark);   // 영상은 검은 바탕
   document.getElementById('iback').innerHTML = `${icon('back')}처음으로`;
   document.getElementById('iback').onclick = () => { location.hash = ''; };
   document.getElementById('ien').textContent = hall.en;
