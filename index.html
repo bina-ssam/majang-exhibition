@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap">
 <!--
-  마장초 온라인 전시관 — 첫 화면(원형) 모델
+  마장초 온라인 전시관 — [시안 1안] 사각형 카드
+  현재 배포본(index.html)과 내용·내부 화면은 같고, 첫 화면만 사각형 카드 배치로 바꾸었습니다.
+  왼쪽: 전시관 제목과 연구학교 홈페이지 버튼 / 오른쪽: 전시관 카드 2×2 (세로 화면에서는 위·아래로 배치)
   전시관 내부는 아직 만들지 않았습니다. 원을 누르면 '준비 중' 화면이 나옵니다.
   이전 시안은 보관 폴더에 있습니다. (A안_사각형_내부포함.html / B안_원형_내부포함.html)
 -->
@@ -56,62 +58,39 @@
   .press:active { transform: scale(.94); }
   .grad-text { background: linear-gradient(100deg, #8fb0ff, #6ee7ff 40%, #ff9ac1 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-  /* ---------- 첫 화면 ---------- */
-  .home { height: 100%; display: flex; flex-direction: column; padding: .8rem 1.4rem 1rem; }
-  .strip { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-shrink: 0; }
-  .chip { display: inline-flex; align-items: center; gap: .6rem; padding: .55rem 1.1rem; border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); font-family: var(--display); font-size: .85rem; font-weight: 500; letter-spacing: .14em; color: var(--ink-2); }
+  /* ---------- 첫 화면 (사각형 카드) ---------- */
+  .home { height: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.45fr); gap: 2.6rem; padding: 2.6rem 2.8rem; }
+  .intro { display: flex; flex-direction: column; min-width: 0; }
+  .chip { align-self: flex-start; display: inline-flex; align-items: center; gap: .6rem; padding: .55rem 1.1rem; border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); font-family: var(--display); font-size: .85rem; font-weight: 500; letter-spacing: .14em; color: var(--ink-2); }
   .chip i { width: .55rem; height: .55rem; border-radius: 50%; background: #6ee7ff; box-shadow: 0 0 12px #6ee7ff; animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 50% { opacity: .35; } }
-  .site-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: 0 1.1rem 0 1.2rem; border-radius: 999px; background: var(--glass-2); border: 1px solid var(--glass-line); font-size: .95rem; font-weight: 700; color: var(--ink-2); }
-  .site-btn svg { width: 1.2rem; height: 1.2rem; }
+  .school { margin-top: auto; font-size: 1.3rem; font-weight: 600; color: var(--ink-2); }
+  .intro h1 { margin-top: .7rem; font-size: 3.6rem; font-weight: 800; line-height: 1.16; letter-spacing: -.03em; }
+  .site-btn { align-self: flex-start; margin-top: 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: .6rem; min-height: 3.6rem; padding: 0 1.4rem 0 1.6rem; border-radius: 999px; background: var(--glass-2); border: 1px solid var(--glass-line); font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+  .site-btn svg { width: 1.3rem; height: 1.3rem; }
+  .site-note { margin-top: .6rem; font-size: .9rem; color: var(--ink-3); }
+  .hint { margin-top: auto; padding-top: 2rem; display: flex; align-items: center; gap: .7rem; font-size: 1.05rem; color: var(--ink-3); }
+  .hint svg { width: 1.6rem; height: 1.6rem; animation: nudge 1.6s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform: translateX(8px); } }
 
-  /* 원 크기는 화면에 맞춰 JS가 계산합니다 (layoutOrbit) */
-  .stage { flex: 1; position: relative; display: grid; place-items: center; min-height: 0;
-           --rx: 22rem; --ry: 14rem; --bs: 13rem; --cs: 16rem; --bf: 1.5rem; --bi: 2.6rem; --cf: 1.7rem; }
-  .ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; border: 1px dashed rgba(255,255,255,.16);
-          width: calc(var(--rx) * 2); height: calc(var(--ry) * 2); transform: translate(-50%, -50%); animation: glowRing 8s ease-in-out infinite; }
-  .ring.r2 { width: calc(var(--rx) * 2.22); height: calc(var(--ry) * 2.3); border-style: solid; border-color: rgba(255,255,255,.06); animation-delay: 2s; }
-  @keyframes glowRing { 50% { border-color: rgba(255,255,255,.26); } }
-
-  .core {
-    position: relative; width: var(--cs); height: var(--cs); border-radius: 50%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .3rem;
-    padding: calc(var(--cs) * .1);
-    background: radial-gradient(circle at 32% 26%, #1b2440, #0b1020 70%);
-    border: 1px solid var(--glass-line);
-    box-shadow: 0 0 130px -22px rgba(79,124,255,.95), inset 0 0 70px rgba(255,255,255,.06), 0 0 0 14px rgba(255,255,255,.03);
+  .halls { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.4rem; min-height: 0; }
+  .hall-card {
+    position: relative; overflow: hidden; border-radius: 36px; padding: 2rem 2.1rem; min-height: 0;
+    background: linear-gradient(145deg, var(--g1), var(--g2));
+    display: flex; flex-direction: column; isolation: isolate;
+    box-shadow: 0 24px 60px -20px var(--g1);
   }
-  .core h1 { font-size: var(--cf); font-weight: 800; line-height: 1.34; letter-spacing: -.02em; }
-  .core .hl { display: block; }
-  .core-site {
-    text-decoration: none; cursor: pointer;
-    margin-top: calc(var(--cf) * .55); display: inline-flex; align-items: center; gap: .45em;
-    padding: .7em 1.1em; border-radius: 999px; font-size: calc(var(--cf) * .46); font-weight: 700;
-    background: var(--glass-2); border: 1px solid var(--glass-line); color: var(--ink-2);
-  }
-  .core-site svg { width: 1.2em; height: 1.2em; }
-  .core-note { margin-top: .5em; font-size: calc(var(--cf) * .34); color: var(--ink-3); }
-
-  .bubble {
-    position: absolute; left: 50%; top: 50%;
-    width: var(--bs); height: var(--bs); border-radius: 50%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .2rem; text-align: center;
-    padding: calc(var(--bs) * .12);
-    background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%);
-    box-shadow: 0 26px 70px -18px var(--g1), inset 0 -16px 38px rgba(0,0,0,.2);
-    transform: translate(-50%, -50%) scale(1);
-    transition: transform .45s cubic-bezier(.2,.8,.25,1), box-shadow .45s;
-  }
-  .bubble::after { content: ""; position: absolute; inset: calc(var(--bs) * -.06); border-radius: 50%; border: 1px solid rgba(255,255,255,.22); }
-  .bubble:hover { transform: translate(-50%, -50%) scale(1.035); }
-  .bubble:active, .bubble.tapped { transform: translate(-50%, -50%) scale(1.07); box-shadow: 0 34px 90px -16px var(--g1); }
-  .bubble .no { font-family: var(--display); font-size: calc(var(--bf) * .62); font-weight: 700; letter-spacing: .16em; opacity: .9; }
-  .bubble .ic { width: var(--bi); height: var(--bi); opacity: .95; }
-  .bubble h2 { margin-top: .1rem; font-size: var(--bf); font-weight: 800; letter-spacing: -.02em; line-height: 1.22; }
-  .bubble .en { margin-top: .15rem; font-family: var(--display); font-size: calc(var(--bf) * .42); font-weight: 700; letter-spacing: .18em; opacity: .85; }
-
-  .foot { flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-top: .3rem; }
-  .foot .hint { font-size: .9rem; color: var(--ink-3); }
+  .hall-card::before { content: ""; position: absolute; z-index: -1; width: 26rem; height: 26rem; border-radius: 50%; right: -9rem; bottom: -11rem; background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 65%); }
+  .hall-card::after { content: ""; position: absolute; z-index: -1; width: 14rem; height: 14rem; border-radius: 50%; right: 2rem; top: -7rem; border: 2px solid rgba(255,255,255,.22); }
+  .hall-card .art { position: absolute; z-index: -1; right: 1.6rem; bottom: 1.6rem; width: 9rem; height: 9rem; color: rgba(255,255,255,.2); }
+  .hall-card .art svg { width: 100%; height: 100%; stroke-width: 1.3; }
+  .hall-card .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .hall-card .no { font-family: var(--display); font-size: 3.4rem; font-weight: 300; line-height: 1; letter-spacing: -.04em; }
+  .en-tag { font-family: var(--display); font-size: .85rem; font-weight: 700; letter-spacing: .18em; padding: .45rem .9rem; border-radius: 999px; background: rgba(255,255,255,.18); }
+  .hall-card h2 { margin-top: auto; font-size: 2.3rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+  .hall-card p { margin-top: .5rem; font-size: 1.05rem; line-height: 1.45; color: rgba(255,255,255,.85); max-width: 20em; }
+  .hall-card .arrow { margin-top: 1.1rem; width: 3.6rem; height: 3.6rem; border-radius: 50%; background: #fff; color: #0a0e1c; display: grid; place-items: center; }
+  .hall-card .arrow svg { width: 1.6rem; height: 1.6rem; }
 
   /* 원이 펼쳐지며 화면을 채우는 전환 */
   .reveal { position: fixed; z-index: 20; border-radius: 50%; pointer-events: none;
@@ -147,7 +126,10 @@
 
   /* ---------- 세로로 세운 스탠바이미 ---------- */
   @media (orientation: portrait) {
-    .foot { padding-top: 1rem; }
+    .home { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 2.4rem; padding: 2.8rem 2.4rem; }
+    .school { margin-top: 2.4rem; }
+    .intro h1 { font-size: 3.4rem; }
+    .hint { display: none; }
   }
 </style>
 </head>
@@ -167,7 +149,8 @@
 /* =====================================================================
    ✏️ 첫 화면 설정
    name  : 전시관 이름 (<br> 을 넣으면 그 자리에서 줄이 바뀝니다)
-   en    : 원 아래 영문 이름
+   en    : 카드 오른쪽 위 영문 이름
+   desc  : 카드에 들어가는 한 줄 설명
    colors: 원 색깔 [시작색, 끝색]
    icon  : school · lesson · people · play
    ===================================================================== */
@@ -181,12 +164,12 @@ const EXHIBIT = {
   siteLabel: '연구학교 홈페이지',
   siteNewTab: true,
   halls: [
-    { id: 'intro',   name: '연구학교<br>소개관',        en: 'ABOUT',     colors: ['#3d5afe', '#29c6ff'], icon: 'school' },
-    { id: 'class',   name: 'High AI, Hi 5<br>수업관',   en: 'CLASSROOM', colors: ['#ff7a2f', '#ff4d8d'], icon: 'lesson' },
+    { id: 'intro',   name: '연구학교<br>소개관',        en: 'ABOUT',     desc: '연구학교가 걸어온 길과 그 성과를 소개해요.',     colors: ['#3d5afe', '#29c6ff'], icon: 'school' },
+    { id: 'class',   name: 'High AI, Hi 5<br>수업관',   en: 'CLASSROOM', desc: 'AI와 함께 탐구하고 표현한 우리 교실 이야기', colors: ['#ff7a2f', '#ff4d8d'], icon: 'lesson' },
     // url 을 적으면 원을 눌렀을 때 그 사이트가 전시관 안에서 바로 열립니다.
-    { id: 'teacher', name: '교사 역량<br>강화관',        en: 'TEACHERS',  colors: ['#10b981', '#22d3c5'], icon: 'people',
+    { id: 'teacher', name: '교사 역량<br>강화관',        en: 'TEACHERS',  desc: '함께 배우고 나누며 성장한 선생님들의 기록',  colors: ['#10b981', '#22d3c5'], icon: 'people',
       url: 'https://padlet.com/embed/s023leshyly7poik17fj' },   // AI 에듀테크 교사 동아리 패들렛
-    { id: 'video',   name: '영상관',                    en: 'VIDEO',     colors: ['#7c4dff', '#d946ef'], icon: 'play' },
+    { id: 'video',   name: '영상관',                    en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',     colors: ['#7c4dff', '#d946ef'], icon: 'play' },
   ],
 };
 /* ===================================================================== */
@@ -198,6 +181,7 @@ const ICONS = {
   play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/>',
   back: '<path d="M15 5l-7 7 7 7"/>',
   arrow: '<path d="M7 17L17 7M9 7h8v8"/>',
+  open: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
 };
 const icon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
@@ -206,7 +190,6 @@ const pad = n => String(n).padStart(2, '0');
 const plain = s => s.replace(/<br\s*\/?>/gi, ' ');
 const hallVars = h => `--g1:${h.colors[0]};--g2:${h.colors[1]}`;
 const hallById = id => EXHIBIT.halls.find(h => h.id === id);
-const ANGLES = ['-135deg', '-45deg', '135deg', '45deg']; // 왼위 · 오른위 · 왼아래 · 오른아래
 
 function route() {
   const id = location.hash.slice(1);
@@ -220,72 +203,32 @@ function route() {
 window.addEventListener('hashchange', route);
 
 function renderHome() {
+  const site = EXHIBIT.siteUrl
+    ? (EXHIBIT.siteNewTab
+        ? `<a class="site-btn press rise" style="--i:3" href="${EXHIBIT.siteUrl}" target="_blank" rel="noopener">${EXHIBIT.siteLabel}${icon('arrow')}</a>
+           <div class="site-note rise" style="--i:3">새 창에서 열립니다</div>`
+        : `<button class="site-btn press rise" style="--i:3" data-go="site">${EXHIBIT.siteLabel}${icon('arrow')}</button>`)
+    : '';
   app.innerHTML = `
     <div class="home">
-      <div class="strip rise">
-        <div class="chip"><i></i>ONLINE EXHIBITION · ${EXHIBIT.school}</div>
-      </div>
-      <div class="stage">
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-        <div class="core pop">
-          <h1>${EXHIBIT.titleLines.join('<br>')}<span class="hl grad-text">${EXHIBIT.titleHighlight}</span></h1>
-          ${EXHIBIT.siteUrl && EXHIBIT.siteNewTab
-            ? `<a class="core-site press" href="${EXHIBIT.siteUrl}" target="_blank" rel="noopener">${EXHIBIT.siteLabel}${icon('arrow')}</a>`
-            : `<button class="core-site press" data-go="site">${EXHIBIT.siteLabel}${icon('arrow')}</button>`}
-          ${EXHIBIT.siteUrl && EXHIBIT.siteNewTab ? '<div class="core-note">새 창에서 열립니다</div>' : ''}
-        </div>
+      <section class="intro">
+        <div class="chip rise"><i></i>ONLINE EXHIBITION</div>
+        <div class="school rise" style="--i:1">${EXHIBIT.school} 온라인 전시관</div>
+        <h1 class="rise" style="--i:2">${EXHIBIT.titleLines.join('<br>')}<br><span class="grad-text">${EXHIBIT.titleHighlight}</span></h1>
+        ${site}
+        <div class="hint rise" style="--i:4">보고 싶은 전시관을 눌러 보세요 ${icon('open')}</div>
+      </section>
+      <section class="halls">
         ${EXHIBIT.halls.map((h, i) => `
-          <button class="bubble press pop" style="${hallVars(h)};--a:${ANGLES[i]};--i:${i + 1}" data-go="${h.id}">
-            <span class="no">${pad(i + 1)}</span>
-            <span class="ic">${icon(h.icon)}</span>
+          <button class="hall-card bubble press rise" style="${hallVars(h)};--i:${i + 2}" data-go="${h.id}">
+            <div class="art">${icon(h.icon)}</div>
+            <div class="top"><span class="no">${pad(i + 1)}</span><span class="en-tag">${h.en}</span></div>
             <h2>${h.name}</h2>
-            <span class="en">${h.en}</span>
+            ${h.desc ? `<p>${h.desc}</p>` : ''}
+            <span class="arrow">${icon('arrow')}</span>
           </button>`).join('')}
-      </div>
-      <div class="foot rise" style="--i:5">
-        <div class="hint">원을 눌러 전시관에 들어가 보세요</div>
-      </div>
+      </section>
     </div>`;
-  layoutOrbit();
-}
-
-/* 화면을 꽉 채우도록 — 전시관 원을 네 귀퉁이로 벌리고, 가운데 원을 최대한 크게 */
-function layoutOrbit() {
-  const st = document.querySelector('.stage');
-  if (!st || !st.clientHeight) return;
-  const W = st.clientWidth, H = st.clientHeight, landscape = W > H;
-  const bubble = landscape ? Math.min(H * 0.42, W * 0.24) : Math.min(W * 0.42, H * 0.24);
-  // 1에 가까울수록 원이 바깥으로 벌어집니다 (가로 화면은 좌우로 덜 벌어지게)
-  const SPREAD_X = landscape ? 0.78 : 0.97, SPREAD_Y = landscape ? 0.94 : 0.92;
-  const rx = (W / 2 - bubble / 2 - W * 0.025) * SPREAD_X;   // 가로 반지름
-  const ry = (H / 2 - bubble / 2 - H * 0.015) * SPREAD_Y;   // 세로 반지름
-  const gap = Math.min(W, H) * 0.03;
-  const dist = Math.hypot(rx, ry);
-  const core = Math.min(H * 0.52, W * 0.62, (dist - bubble / 2 - gap) * 2);
-
-  st.style.setProperty('--rx', rx + 'px');
-  st.style.setProperty('--ry', ry + 'px');
-  st.style.setProperty('--bs', bubble + 'px');
-  st.style.setProperty('--cs', core + 'px');
-  st.style.setProperty('--bf', bubble * 0.115 + 'px');  // 전시관 이름 글자
-  st.style.setProperty('--bi', bubble * 0.16 + 'px');   // 아이콘
-  st.style.setProperty('--cf', Math.min(core * 0.105, H * 0.062) + 'px'); // 가운데 글자
-
-  // 왼위 · 오른위 · 왼아래 · 오른아래
-  const spots = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
-  st.querySelectorAll('.bubble').forEach((el, i) => {
-    el.style.left = `calc(50% + ${spots[i][0] * rx}px)`;
-    el.style.top = `calc(50% + ${spots[i][1] * ry}px)`;
-  });
-}
-window.addEventListener('resize', () => { clearTimeout(window._ot); window._ot = setTimeout(layoutOrbit, 150); });
-window.addEventListener('orientationchange', () => setTimeout(layoutOrbit, 300));
-// 화면(무대) 크기가 바뀌면 언제든 다시 계산
-if (window.ResizeObserver) {
-  const ro = new ResizeObserver(() => layoutOrbit());
-  const watch = () => { const st = document.querySelector('.stage'); if (st) ro.observe(st); };
-  setTimeout(watch, 0);
 }
 
 /* ---------- 전시관 내부: 아직 준비 중 ---------- */
@@ -333,13 +276,14 @@ function revealInto(el, hall) {
   el.classList.add('tapped');
   const r = el.getBoundingClientRect();
   const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const size = Math.min(r.width, r.height);
   const far = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
   const d = document.createElement('div');
   d.className = 'reveal';
-  d.setAttribute('style', `${hallVars(hall)};left:${cx}px;top:${cy}px;width:${r.width}px;height:${r.height}px`);
+  d.setAttribute('style', `${hallVars(hall)};left:${cx}px;top:${cy}px;width:${size}px;height:${size}px`);
   document.body.appendChild(d);
   requestAnimationFrame(() => {
-    d.style.transform = `translate(-50%, -50%) scale(${(far * 2.1) / r.width})`;
+    d.style.transform = `translate(-50%, -50%) scale(${(far * 2.1) / size})`;
   });
   setTimeout(() => {
     location.hash = hall.id;
