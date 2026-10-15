@@ -3,35 +3,63 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>마장초 온라인 전시관</title>
+<title>마장초등학교 AI 디지털 활용 연구학교 전시관</title>
+<!-- 글꼴: 엘리스 디지털 배움체 (이 글꼴에 없는 글자는 프리텐다드로 대신 나옵니다) -->
+<link rel="preconnect" href="https://cdn-front-door.elice.io" crossorigin>
+<link rel="stylesheet" href="https://font.elice.io/css?family=Elice+Digital+Baeum">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap">
 <!--
-  마장초 온라인 전시관 — [시안 1안] 사각형 카드
-  현재 배포본(index.html)과 내용·내부 화면은 같고, 첫 화면만 사각형 카드 배치로 바꾸었습니다.
-  왼쪽: 전시관 제목과 연구학교 홈페이지 버튼 / 오른쪽: 전시관 카드 2×2 (세로 화면에서는 위·아래로 배치)
-  전시관 내부는 아직 만들지 않았습니다. 원을 누르면 '준비 중' 화면이 나옵니다.
-  이전 시안은 보관 폴더에 있습니다. (A안_사각형_내부포함.html / B안_원형_내부포함.html)
+  마장초 온라인 전시관 — 가로로 펼쳐지는 카드
+  학교에 설치한 스탠바이미 화면에서 보여 주기 위해 만들었습니다. 가로·세로 모두 됩니다.
+
+  · 바탕은 보라에서 파랑으로 번지는 어두운 그라데이션입니다.
+    사진 파일을 쓰지 않고 색으로 그려서, 가로로 눕히든 세로로 세우든 흐려지지 않습니다.
+  · 카드는 전시관마다 다른 진한 색으로 꽉 채웠습니다(분홍·초록·주황·파랑). 글자는 카드 안팎 모두 흰색입니다.
+  · 카드 한 장이 옆으로 넓어지면서 오른쪽에 아주 연한 색 그림칸이 열립니다.
+    손대지 않으면 4.5초마다 저절로 옆 카드로 넘어갑니다.
+  · 카드를 한 번 누르면 바로 그 전시관으로 들어갑니다. (손가락이 닿는 순간 그 카드가 펼쳐져 눌린 것이 보입니다.)
+  · 세로로 세운 스탠바이미에서는 카드가 위아래로 쌓입니다.
+  · 이전 디자인(사각형 카드)은 보관 폴더의 index_20261015_이전본_사각형카드.html 에 두었습니다.
+    다른 시안들은 시안 폴더에 있습니다.
 -->
 <style>
   :root {
-    --bg: #0a0e1c;
-    --ink: #ffffff;
-    --ink-2: rgba(255,255,255,.68);
-    --ink-3: rgba(255,255,255,.42);
-    --glass: rgba(255,255,255,.06);
-    --glass-2: rgba(255,255,255,.1);
-    --glass-line: rgba(255,255,255,.12);
-    --display: "Outfit", "Pretendard", sans-serif;
-    --g1: #4f7cff; --g2: #35d0ff;
+    /* 바탕과 글자색 */
+    --paper: #0d1033;                 /* 그라데이션이 안 깔릴 때 쓰이는 기본 바탕색 */
+    --ink:   #ffffff;                 /* 어두운 바탕 위 글자색 (제목·안내 글) */
+    --ink-2: rgba(255,255,255,.74);
+    --ink-3: rgba(255,255,255,.5);
+    --line:  rgba(255,255,255,.18);
+    --on-accent: #0d1033;             /* 밝은 포인트 색 위에 올라가는 글자색 */
+
+    --card-ink:   #ffffff;            /* 진한 카드 안 글자색 */
+    --card-ink-2: rgba(255,255,255,.88);
+
+    /* 뒷배경 그라데이션 — 보내 주신 사진에서 뽑은 색입니다.
+       각 줄이 '크기 at 위치, 색' 한 덩어리이고, 위에 적힌 것이 위에 겹칩니다. */
+    --mesh:
+      radial-gradient(72% 72% at  10%  -8%, #442d94 0%, rgba(68,45,148,0)  72%),   /* 보라 */
+      radial-gradient(68% 72% at  94%  -4%, #2b3da6 0%, rgba(43,61,166,0)  74%),   /* 남보라 */
+      radial-gradient(62% 72% at  -8%  68%, #183a8c 0%, rgba(24,58,140,0)  72%),   /* 파랑 */
+      radial-gradient(72% 80% at  88%  74%, #51309b 0%, rgba(81,48,155,0)  74%),   /* 보라 */
+      radial-gradient(64% 62% at  48% 116%, #142470 0%, rgba(20,36,112,0)  72%);   /* 짙은 파랑 */
+
+    /* 카드 바탕(반투명 흰색) 과 포인트 색 */
+    --card-1: #3f4fb8;                /* 카드 기본색 — 전시관마다 아래 설정의 tint 로 덮어씁니다 */
+    --card-2: #5e6fd4;
+    --accent: #9db0ff;
+
+    --display: "Elice Digital Baeum", "Pretendard", sans-serif;
+    --g1: #7f8fe8; --g2: #a8b8f7;      /* 전시관 대표색 — 화살표 단추·화면 전환에 쓰입니다 */
+    --s1: #eef1ff; --s2: #f8f9ff;      /* 펼쳤을 때 열리는 그림칸 색 (연한 쪽) */
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: clamp(16px, calc(0.8vmin + 0.55vmax), 28px); }
+  html { font-size: clamp(15px, calc(0.72vmin + 0.52vmax), 26px); }
   html, body { height: 100%; }
   body {
-    font-family: "Pretendard", system-ui, sans-serif;
-    background: var(--bg); color: var(--ink);
+    font-family: "Elice Digital Baeum", "Pretendard", system-ui, sans-serif;
+    background-color: var(--paper); background-image: var(--mesh);
+    background-attachment: fixed; background-repeat: no-repeat; color: var(--ink);
     -webkit-user-select: none; user-select: none;
     -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
     touch-action: manipulation; overflow: hidden; word-break: keep-all;
@@ -39,108 +67,168 @@
   button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; text-align: left; }
   svg { display: block; }
 
-  /* ---------- 배경 ---------- */
-  .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-  .orb { position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: .5; animation: drift 26s ease-in-out infinite alternate; }
-  .orb.a { background: radial-gradient(circle, rgba(79,124,255,.5), transparent 62%); left: -28vmax; top: -32vmax; }
-  .orb.b { background: radial-gradient(circle, rgba(255,90,140,.34), transparent 62%); right: -32vmax; top: 8vmax; animation-duration: 32s; }
-  .orb.c { background: radial-gradient(circle, rgba(47,211,154,.28), transparent 62%); left: 8vmax; bottom: -46vmax; animation-duration: 38s; }
-  @keyframes drift { to { transform: translate(6vmax, 4vmax) scale(1.08); } }
-  .grain { position: absolute; inset: 0; opacity: .07; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  /* ---------- 바탕 위에 얹는 옅은 빛무리 ---------- */
+  .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bg { display: none; }
 
   #app { position: relative; z-index: 1; height: 100%; }
   .rise { animation: rise .8s cubic-bezier(.2,.75,.2,1) both; animation-delay: calc(var(--i, 0) * 90ms); }
-  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-  .pop { animation: pop .9s cubic-bezier(.2,.8,.25,1) both; animation-delay: calc(var(--i, 0) * 110ms); }
-  @keyframes pop { from { opacity: 0; transform: scale(.82); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
   .press { transition: transform .25s cubic-bezier(.2,.75,.2,1); }
-  .press:active { transform: scale(.94); }
-  .grad-text { background: linear-gradient(100deg, #8fb0ff, #6ee7ff 40%, #ff9ac1 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .press:active { transform: scale(.96); }
 
-  /* ---------- 첫 화면 (사각형 카드) ---------- */
-  .home { height: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.45fr); gap: 2.6rem; padding: 2.6rem 2.8rem; }
-  .intro { display: flex; flex-direction: column; min-width: 0; }
-  .chip { align-self: flex-start; display: inline-flex; align-items: center; gap: .6rem; padding: .55rem 1.1rem; border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); font-family: var(--display); font-size: .85rem; font-weight: 500; letter-spacing: .14em; color: var(--ink-2); }
-  .chip i { width: .55rem; height: .55rem; border-radius: 50%; background: #6ee7ff; box-shadow: 0 0 12px #6ee7ff; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 50% { opacity: .35; } }
-  .school { margin-top: auto; font-size: 1.3rem; font-weight: 600; color: var(--ink-2); }
-  .intro h1 { margin-top: .7rem; font-size: 3.6rem; font-weight: 800; line-height: 1.16; letter-spacing: -.03em; }
-  .site-btn { align-self: flex-start; margin-top: 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: .6rem; min-height: 3.6rem; padding: 0 1.4rem 0 1.6rem; border-radius: 999px; background: var(--glass-2); border: 1px solid var(--glass-line); font-size: 1.15rem; font-weight: 700; color: var(--ink); }
-  .site-btn svg { width: 1.3rem; height: 1.3rem; }
-  .site-note { margin-top: .6rem; font-size: .9rem; color: var(--ink-3); }
-  .hint { margin-top: auto; padding-top: 2rem; display: flex; align-items: center; gap: .7rem; font-size: 1.05rem; color: var(--ink-3); }
-  .hint svg { width: 1.6rem; height: 1.6rem; animation: nudge 1.6s ease-in-out infinite; }
-  @keyframes nudge { 50% { transform: translateX(8px); } }
+  /* ---------- 첫 화면 ---------- */
+  .page { height: 100%; display: flex; flex-direction: column; gap: 2.2rem; padding: 3.2rem 3.4rem 2.6rem; }
 
-  .halls { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.4rem; min-height: 0; }
-  .hall-card {
-    position: relative; overflow: hidden; border-radius: 36px; padding: 2rem 2.1rem; min-height: 0;
-    background: linear-gradient(145deg, var(--g1), var(--g2));
-    display: flex; flex-direction: column; isolation: isolate;
-    box-shadow: 0 24px 60px -20px var(--g1);
+  .top { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-shrink: 0; }
+  .eyebrow { font-size: .92rem; font-weight: 700; letter-spacing: .02em; color: var(--ink-2); }
+  .eyebrow span { font-family: var(--display); letter-spacing: .16em; color: var(--accent); }
+  h1 { margin-top: .85rem; font-size: 4.1rem; font-weight: 700; line-height: 1.08; letter-spacing: -.035em; }
+  h1 small { display: block; font-size: .6em; line-height: 1.1; letter-spacing: -.03em; color: var(--ink-2); }
+  h1 em { font-style: normal; color: var(--accent); }
+
+  /* 오른쪽 위 '연구학교 홈페이지' 버튼 */
+  .site {
+    display: inline-flex; align-items: center; gap: .6rem; flex-shrink: 0;
+    text-decoration: none; color: inherit;
+    padding: .32rem .32rem .32rem 1.05rem; border-radius: 999px;
+    background: rgba(255,255,255,.1); border: 2px solid var(--accent);
+    box-shadow: 0 10px 28px -16px rgba(157,176,255,.6);
+    transition: background .3s, color .3s;
   }
-  .hall-card::before { content: ""; position: absolute; z-index: -1; width: 26rem; height: 26rem; border-radius: 50%; right: -9rem; bottom: -11rem; background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 65%); }
-  .hall-card::after { content: ""; position: absolute; z-index: -1; width: 14rem; height: 14rem; border-radius: 50%; right: 2rem; top: -7rem; border: 2px solid rgba(255,255,255,.22); }
-  .hall-card .art { position: absolute; z-index: -1; right: 1.6rem; bottom: 1.6rem; width: 9rem; height: 9rem; color: rgba(255,255,255,.2); }
-  .hall-card .art svg { width: 100%; height: 100%; stroke-width: 1.3; }
-  .hall-card .top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .hall-card .no { font-family: var(--display); font-size: 3.4rem; font-weight: 300; line-height: 1; letter-spacing: -.04em; }
-  .en-tag { font-family: var(--display); font-size: .85rem; font-weight: 700; letter-spacing: .18em; padding: .45rem .9rem; border-radius: 999px; background: rgba(255,255,255,.18); }
-  .hall-card h2 { margin-top: auto; font-size: 2.3rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
-  .hall-card p { margin-top: .5rem; font-size: 1.05rem; line-height: 1.45; color: rgba(255,255,255,.85); max-width: 20em; }
-  .hall-card .arrow { margin-top: 1.1rem; width: 3.6rem; height: 3.6rem; border-radius: 50%; background: #fff; color: #0a0e1c; display: grid; place-items: center; }
-  .hall-card .arrow svg { width: 1.6rem; height: 1.6rem; }
+  .site .house { width: 1.3rem; height: 1.3rem; color: var(--accent); transition: color .3s; }
+  .site .ko { font-size: 1.05rem; font-weight: 700; letter-spacing: -.02em; }
+  .site .ring { width: 2.5rem; height: 2.5rem; border-radius: 50%; flex-shrink: 0;
+                background: var(--accent); color: var(--on-accent); display: grid; place-items: center;
+                transition: background .3s, color .3s; }
+  .site .ring svg { width: 1.05rem; height: 1.05rem; }
+  .site:active { background: var(--accent); color: var(--on-accent); }
+  .site:active .house { color: var(--on-accent); }
+  .site:active .ring { background: var(--paper); color: var(--accent); }
 
-  /* 원이 펼쳐지며 화면을 채우는 전환 */
+  /* ---------- 카드 줄 ---------- */
+  .halls { flex: 1; min-height: 0; display: flex; align-items: center; gap: 1.5rem; }
+  .hall {
+    position: relative; flex: 1 1 0; min-width: 0; overflow: hidden;
+    height: 100%; max-height: 31rem;
+    border-radius: 30px; display: flex; isolation: isolate;
+    background: linear-gradient(135deg, var(--card-1), var(--card-2));
+    border: 1px solid rgba(255,255,255,.2); color: var(--card-ink);
+    transition: flex-grow .7s cubic-bezier(.3,.8,.25,1), box-shadow .5s ease, transform .25s cubic-bezier(.2,.75,.2,1);
+  }
+  .hall.on { flex-grow: 2.15; box-shadow: 0 28px 56px -22px rgba(0,0,0,.65); }
+  .hall:active { transform: scale(.985); }
+  /* 카드 안쪽 옅은 동그라미 장식 */
+  .hall::before, .hall::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; background: rgba(255,255,255,.17); }
+  .hall::before { width: 11rem; height: 11rem; left: .5rem; bottom: -3.4rem; }
+  .hall::after  { width: 7rem;  height: 7rem;  left: 6.2rem; bottom: .4rem; background: rgba(255,255,255,.12); }
+
+  .hall .body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; padding: 2.2rem 2.2rem 2rem; }
+  .hall h2 { font-size: 2.15rem; font-weight: 700; line-height: 1.22; letter-spacing: -.025em; }
+  .hall p {
+    margin-top: 1rem; font-size: 1.02rem; line-height: 1.55; color: var(--card-ink-2); max-width: 17em;
+    opacity: .18; transition: opacity .55s ease;
+  }
+  .hall.on p { opacity: 1; }
+
+  .hall .go { margin-top: auto; padding-top: 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .hall .go span { font-size: 1.02rem; font-weight: 700; }
+  .hall .dot {
+    width: 3.2rem; height: 3.2rem; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+    border: 1px solid rgba(255,255,255,.45); color: var(--card-ink);
+    transition: background .45s ease, color .45s ease, border-color .45s ease, transform .45s ease;
+  }
+  .hall .dot svg { width: 1.25rem; height: 1.25rem; }
+  .hall.on .dot { background: #fff; border-color: #fff; color: var(--g1); transform: rotate(45deg); }
+  .hall.on .dot svg { transform: rotate(-45deg); }
+
+  /* 펼쳐질 때 열리는 그림칸 (사진을 넣으면 사진이 들어갑니다) */
+  .hall .shot { position: relative; flex: 0 0 0; overflow: hidden; transition: flex-basis .7s cubic-bezier(.3,.8,.25,1); }
+  .hall.on .shot { flex-basis: 14.5rem; }
+  .hall .shot .in {
+    position: absolute; top: 1.3rem; bottom: 1.3rem; right: 1.3rem; width: 13.2rem;
+    border-radius: 22px; overflow: hidden;
+    background: linear-gradient(150deg, var(--s1), var(--s2));
+    border: 1px solid rgba(255,255,255,.75);
+    display: grid; place-items: center;
+  }
+  .hall .shot .in img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hall .shot .in svg { width: 5.2rem; height: 5.2rem; color: var(--g1); stroke-width: 1.5; }
+
+  .hint { flex-shrink: 0; display: flex; align-items: center; gap: .7rem; font-size: 1rem; color: var(--ink-3); }
+  .hint svg { width: 1.4rem; height: 1.4rem; animation: nudge 1.6s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform: translateX(7px); } }
+
+  /* 누른 카드가 둥글게 번지며 화면을 덮는 전환 */
   .reveal { position: fixed; z-index: 20; border-radius: 50%; pointer-events: none;
     background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%);
     transform: translate(-50%, -50%) scale(1); opacity: 1;
     transition: transform .6s cubic-bezier(.45,.05,.2,1), opacity .45s ease .05s; }
 
-  /* ---------- 준비 중 화면 (내부는 아직 만들지 않았습니다) ---------- */
-  #inner { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; background: var(--bg);
+  /* ---------- 전시관 안쪽 ---------- */
+  #inner { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column;
+           background-color: var(--paper); background-image: var(--mesh);
            animation: innerIn .5s cubic-bezier(.2,.8,.25,1) both; }
   #inner[hidden] { display: none; }
   #inner.leaving { animation: innerOut .35s ease forwards; }
   @keyframes innerIn { from { opacity: 0; transform: scale(1.03); } }
   @keyframes innerOut { to { opacity: 0; transform: scale(1.02); } }
-  .ibar { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 1.6rem; background: linear-gradient(135deg, var(--g1), var(--g2)); flex-shrink: 0; }
-  .pill-btn { display: inline-flex; align-items: center; gap: .6rem; min-height: 4rem; padding: 0 1.6rem 0 1.2rem; border-radius: 999px; font-size: 1.2rem; font-weight: 800; background: rgba(10,14,28,.28); border: 1px solid rgba(255,255,255,.35); color: #fff; }
-  .pill-btn svg { width: 1.5rem; height: 1.5rem; }
-  .ibar .t small { display: block; font-family: var(--display); font-size: .9rem; font-weight: 700; letter-spacing: .18em; opacity: .85; }
-  .ibar .t strong { display: block; font-size: 1.5rem; font-weight: 800; }
-  .ibody { flex: 1; min-height: 0; display: flex; position: relative; }
+
+  .ibar { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.8rem; flex-shrink: 0;
+          background: rgba(255,255,255,.07); border-bottom: 1px solid var(--line); }
+  .pill-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 3.6rem; padding: 0 1.5rem 0 1.1rem;
+              border-radius: 999px; font-size: 1.1rem; font-weight: 700; background: #fff; color: var(--paper); }
+  .pill-btn svg { width: 1.4rem; height: 1.4rem; }
+  .ibar .mark { width: 1rem; height: 1rem; border-radius: 50%; background: var(--g1); flex-shrink: 0; }
+  .ibar .t small { display: block; font-family: var(--display); font-size: .82rem; font-weight: 700; letter-spacing: .18em; color: var(--ink-3); }
+  .ibar .t strong { display: block; font-size: 1.4rem; font-weight: 700; letter-spacing: -.02em; }
+
+  /* 바탕을 비워 두어야 '준비 중' 화면에서 뒤 그라데이션이 보입니다.
+     사이트를 불러오는 경우에는 아래 iframe 이 흰 바탕을 깝니다. */
+  .ibody { flex: 1; min-height: 0; display: flex; position: relative; background: transparent; }
   .loading { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
-             background: var(--bg); font-size: 1.2rem; font-weight: 600; color: var(--ink-2); }
-  .spin { width: 3.4rem; height: 3.4rem; border-radius: 50%; border: 5px solid var(--glass-line); border-top-color: var(--g2); animation: spinner 1s linear infinite; }
+             background: var(--paper); font-size: 1.1rem; font-weight: 700; color: var(--ink-2); }
+  .spin { width: 3.2rem; height: 3.2rem; border-radius: 50%; border: 5px solid var(--line); border-top-color: var(--g1); animation: spinner 1s linear infinite; }
   @keyframes spinner { to { transform: rotate(360deg); } }
   .ibody iframe { flex: 1; width: 100%; height: 100%; border: 0; background: #fff; }
   .ibody.dark, .ibody.dark iframe { background: #000; }
+
   .soon { margin: auto; text-align: center; padding: 2rem; }
-  .soon .glow { width: 9rem; height: 9rem; margin: 0 auto 1.8rem; border-radius: 50%; display: grid; place-items: center;
-    background: radial-gradient(circle at 34% 26%, var(--g2), var(--g1) 72%); box-shadow: 0 0 90px -10px var(--g1); animation: breathe 3s ease-in-out infinite; }
-  .soon .glow svg { width: 4rem; height: 4rem; }
+  .soon .glow { width: 8.5rem; height: 8.5rem; margin: 0 auto 1.8rem; border-radius: 50%; display: grid; place-items: center;
+    background: linear-gradient(150deg, var(--g1), var(--g2)); box-shadow: 0 24px 60px -24px var(--g1); animation: breathe 3s ease-in-out infinite; color: #fff; }
+  .soon .glow svg { width: 3.8rem; height: 3.8rem; }
   @keyframes breathe { 50% { transform: scale(1.06); } }
-  .soon h2 { font-size: 2.4rem; font-weight: 800; }
-  .soon p { margin-top: .7rem; font-size: 1.15rem; color: var(--ink-2); line-height: 1.6; }
+  .soon h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -.025em; }
+  .soon p { margin-top: .7rem; font-size: 1.1rem; color: var(--ink-2); line-height: 1.6; }
 
   /* ---------- 세로로 세운 스탠바이미 ---------- */
   @media (orientation: portrait) {
-    .home { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 2.4rem; padding: 2.8rem 2.4rem; }
-    .school { margin-top: 2.4rem; }
-    .intro h1 { font-size: 3.4rem; }
+    .page { padding: 3rem 2.4rem 2.2rem; gap: 1.8rem; }
+    .top { flex-direction: column; align-items: flex-start; gap: 1.4rem; }
+    h1 { font-size: 3.5rem; }
+    .halls { flex-direction: column; align-items: stretch; gap: 1.1rem; }
+    .hall { height: auto; max-height: none; }
+    .hall.on { flex-grow: 1.55; }
+    .hall .body { padding: 1.7rem 1.8rem; }
+    .hall h2 { font-size: 1.95rem; }
+    .hall p { margin-top: .6rem; }
+    .hall .go { padding-top: 1rem; }
+    .hall::before { width: 8rem; height: 8rem; bottom: -2.6rem; }
+    .hall::after { width: 5rem; height: 5rem; left: 4.6rem; bottom: .2rem; }
+    .hall.on .shot { flex-basis: 11rem; }
+    .hall .shot .in { top: 1rem; bottom: 1rem; right: 1rem; width: 10rem; border-radius: 18px; }
     .hint { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="bg"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div><div class="grain"></div></div>
+<div class="bg"><i></i><i></i></div>
 <div id="app"></div>
 
 <div id="inner" hidden>
   <div class="ibar">
     <button class="pill-btn press" id="iback"></button>
+    <div class="mark"></div>
     <div class="t"><small id="ien"></small><strong id="ititle"></strong></div>
   </div>
   <div class="ibody" id="ibody"></div>
@@ -148,32 +236,38 @@
 
 <script>
 /* =====================================================================
-   ✏️ 첫 화면 설정
-   name  : 전시관 이름 (<br> 을 넣으면 그 자리에서 줄이 바뀝니다)
-   en    : 카드 오른쪽 위 영문 이름
-   desc  : 카드에 들어가는 한 줄 설명
-   colors: 원 색깔 [시작색, 끝색]
-   icon  : school · lesson · people · play
+   ✏️ 첫 화면 설정  — 전시관 이름·설명·색깔은 아래만 고치면 됩니다
+   name   : 전시관 이름 (<br> 을 넣으면 그 자리에서 줄이 바뀝니다)
+   en     : 영문 이름
+   desc   : 카드에 들어가는 설명
+   colors : 전시관 대표색 [진한 색, 중간 색] — 화살표 단추와 화면 전환에 쓰입니다
+   tint   : 카드 바탕 색 [왼쪽 위, 오른쪽 아래] — 글자가 흰색이므로 충분히 진한 색으로 적으세요
+   shot   : 펼쳐졌을 때 열리는 그림칸 색 [시작색, 끝색] — tint 보다 더 연하게 적으세요
+   icon   : school · lesson · people · play
+   img    : (없어도 됩니다) 'files/사진.jpg' 처럼 적으면 그림칸에 그 사진이 들어갑니다
+   url    : (없어도 됩니다) 적으면 전시관 안에서 그 사이트가 바로 열립니다
    ===================================================================== */
 const EXHIBIT = {
-  school: '마장초등학교',
-  titleLines: ['마장초', 'AI 디지털 활용', '연구학교'],   // 줄을 나누어 적으세요
-  titleHighlight: '한눈에 보기',
-  // 연구학교 홈페이지 (가운데 원 안의 버튼)
+  // 위쪽 배너 — 학교 이름이 작은 윗줄, 전시관 이름이 큰 아랫줄입니다.
+  // 일부 글자만 포인트 색으로 쓰고 싶으면 그 부분을 <em> ... </em> 로 감싸세요.
+  // 예) 'AI 디지털 활용 연구학교 <em>전시관</em>'
+  eyebrow: 'ONLINE EXHIBITION',
+  schoolName: '마장초등학교',
+  title: 'AI 디지털 활용 연구학교 전시관',
+  // 연구학교 홈페이지 (오른쪽 위 버튼)
   // ※ 구글 사이트는 다른 페이지 안에 넣는 것이 막혀 있어 새 창으로 열립니다.
   siteUrl: 'https://sites.google.com/view/majangcho26/home',
   siteLabel: '연구학교 홈페이지',
-  siteNewTab: true,
   halls: [
-    { id: 'intro',   name: '연구학교<br>소개관',        en: 'ABOUT',     desc: '연구학교가 걸어온 길과 그 성과를 소개해요.',     colors: ['#3d5afe', '#29c6ff'], icon: 'school' },
-    { id: 'class',   name: 'High AI, Hi 5<br>수업관',   en: 'CLASSROOM', desc: 'AI와 함께 탐구하고 표현한 우리 교실 이야기', colors: ['#ff7a2f', '#ff4d8d'], icon: 'lesson' },
-    // url 을 적으면 원을 눌렀을 때 그 사이트가 전시관 안에서 바로 열립니다.
-    { id: 'teacher', name: '교사 역량<br>강화관',        en: 'TEACHERS',  desc: '함께 배우고 나누며 성장한 선생님들의 기록',  colors: ['#10b981', '#22d3c5'], icon: 'people',
+    { id: 'intro',   name: '연구학교<br>소개관',      en: 'ABOUT',     desc: '연구학교가 걸어온 길과 그 성과를 소개해요.',     colors: ['#c94a73', '#eb97b0'], tint: ['#cf3a71', '#e8629a'], shot: ['#fde7ef', '#fef6f9'], icon: 'school' },
+    { id: 'class',   name: 'High AI, Hi 5<br>수업관', en: 'CLASSROOM', desc: 'AI와 함께 탐구하고 표현한 우리 교실 이야기',     colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'lesson' },
+    { id: 'teacher', name: '교사 역량<br>강화관',      en: 'TEACHERS',  desc: '함께 배우고 나누며 성장한 선생님들의 기록',       colors: ['#d1701f', '#f0a357'], tint: ['#cf6413', '#ea8b33'], shot: ['#fdeeda', '#fef8f1'], icon: 'people',
       url: 'https://padlet.com/embed/s023leshyly7poik17fj' },   // AI 에듀테크 교사 동아리 패들렛
-    // 2025 마장초등학교 교육활동 홍보영상 (연구학교 사이트에 올라와 있는 영상)
-    { id: 'video',   name: '영상관',                    en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',     colors: ['#7c4dff', '#d946ef'], icon: 'play',
+    { id: 'video',   name: '영상관',                  en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',       colors: ['#1f74c4', '#6cb3ef'], tint: ['#1a6cc4', '#3a92e2'], shot: ['#e2eefb', '#f3f8fd'], icon: 'play',
       url: 'https://www.youtube-nocookie.com/embed/sIxWlQljAe4?rel=0&playsinline=1', dark: true },
   ],
+  // 아무도 손대지 않을 때 카드가 저절로 넘어가는 간격(초). 0 으로 적으면 넘어가지 않습니다.
+  autoSeconds: 4.5,
 };
 /* ===================================================================== */
 
@@ -181,68 +275,105 @@ const ICONS = {
   school: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/>',
   lesson: '<path d="M3 5h18v11H3z"/><path d="M8 20h8M12 16v4M7 9h6M7 12h4"/>',
   people: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.2 5 2.6 5 5.8"/>',
-  play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/>',
-  back: '<path d="M15 5l-7 7 7 7"/>',
-  arrow: '<path d="M7 17L17 7M9 7h8v8"/>',
-  open: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+  play:   '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/>',
+  home:   '<path d="M3.5 10.6 12 3.8l8.5 6.8"/><path d="M6.2 9.3V19.5h11.6V9.3"/><path d="M9.8 19.5v-5.2h4.4v5.2"/>',
+  back:   '<path d="M15 5l-7 7 7 7"/>',
+  arrow:  '<path d="M7 17L17 7M9 7h8v8"/>',
+  open:   '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  globe:  '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
 };
 const icon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 const app = document.getElementById('app');
-const pad = n => String(n).padStart(2, '0');
 const plain = s => s.replace(/<br\s*\/?>/gi, ' ');
-const hallVars = h => `--g1:${h.colors[0]};--g2:${h.colors[1]}`;
+const hallVars = h => `--g1:${h.colors[0]};--g2:${h.colors[1]}`
+  + (h.tint ? `;--card-1:${h.tint[0]};--card-2:${h.tint[1]}` : '')
+  + (h.shot ? `;--s1:${h.shot[0]};--s2:${h.shot[1]}` : '');
 const hallById = id => EXHIBIT.halls.find(h => h.id === id);
+
+/* ---------- 첫 화면 그리기 ---------- */
+function renderHome() {
+  app.innerHTML = `
+    <div class="page">
+      <header class="top">
+        <div>
+          <div class="eyebrow rise"><span>${EXHIBIT.eyebrow}</span></div>
+          <h1 class="rise" style="--i:1"><small>${EXHIBIT.schoolName}</small>${EXHIBIT.title}</h1>
+        </div>
+        <a class="site press rise" style="--i:2" href="${EXHIBIT.siteUrl}" target="_blank" rel="noopener">
+          <span class="house">${icon('home')}</span>
+          <span class="ko">${EXHIBIT.siteLabel}</span>
+          <span class="ring">${icon('arrow')}</span>
+        </a>
+      </header>
+
+      <section class="halls">
+        ${EXHIBIT.halls.map((h, i) => `
+          <button class="hall rise" style="${hallVars(h)};--i:${i + 3}" data-go="${h.id}">
+            <div class="body">
+              <h2>${h.name}</h2>
+              ${h.desc ? `<p>${h.desc}</p>` : ''}
+              <div class="go"><span>들어가기</span><span class="dot">${icon('arrow')}</span></div>
+            </div>
+            <div class="shot"><div class="in">${h.img ? `<img src="${h.img}" alt="">` : icon(h.icon)}</div></div>
+          </button>`).join('')}
+      </section>
+
+      <div class="hint rise" style="--i:7">보고 싶은 전시관을 눌러 보세요 ${icon('open')}</div>
+    </div>`;
+  setActive(0);
+  startAuto();
+}
+
+/* ---------- 펼쳐지는 카드 ---------- */
+let activeIndex = 0, autoTimer = null, resumeTimer = null;
+
+function setActive(i) {
+  activeIndex = (i + EXHIBIT.halls.length) % EXHIBIT.halls.length;
+  document.querySelectorAll('.hall').forEach((el, n) => el.classList.toggle('on', n === activeIndex));
+}
+function startAuto() {
+  clearInterval(autoTimer);
+  if (!EXHIBIT.autoSeconds) return;
+  autoTimer = setInterval(() => setActive(activeIndex + 1), EXHIBIT.autoSeconds * 1000);
+}
+function pauseAuto() {                       // 사람이 손댄 뒤에는 잠시 멈춥니다
+  clearInterval(autoTimer);
+  clearTimeout(resumeTimer);
+  resumeTimer = setTimeout(startAuto, 12000);
+}
+
+/* 마우스는 올리면, 손가락은 닿는 순간 그 카드가 펼쳐집니다 */
+document.addEventListener('pointerover', e => {
+  if (e.pointerType !== 'mouse') return;
+  const el = e.target.closest('.hall');
+  if (!el || el.classList.contains('on')) return;
+  pauseAuto(); setActive([...el.parentNode.children].indexOf(el));
+});
+document.addEventListener('pointerdown', e => {
+  const el = e.target.closest('.hall');
+  if (!el) return;
+  pauseAuto(); setActive([...el.parentNode.children].indexOf(el));
+});
+
+/* ---------- 전시관 열고 닫기 ---------- */
+const inner = document.getElementById('inner');
+const ibody = document.getElementById('ibody');
 
 function route() {
   const id = location.hash.slice(1);
-  if (!document.querySelector('.home')) renderHome();
-  if (id === 'site') return openInner(
-    { name: EXHIBIT.siteLabel, en: 'HOMEPAGE', colors: ['#3b4a6b', '#5b6f9a'], icon: 'globe' }, EXHIBIT.siteUrl);
+  if (!document.querySelector('.page')) renderHome();
   const hall = hallById(id);
   if (hall) return openInner(hall, hall.url || '');
   closeInner();
 }
 window.addEventListener('hashchange', route);
 
-function renderHome() {
-  const site = EXHIBIT.siteUrl
-    ? (EXHIBIT.siteNewTab
-        ? `<a class="site-btn press rise" style="--i:3" href="${EXHIBIT.siteUrl}" target="_blank" rel="noopener">${EXHIBIT.siteLabel}${icon('arrow')}</a>
-           <div class="site-note rise" style="--i:3">새 창에서 열립니다</div>`
-        : `<button class="site-btn press rise" style="--i:3" data-go="site">${EXHIBIT.siteLabel}${icon('arrow')}</button>`)
-    : '';
-  app.innerHTML = `
-    <div class="home">
-      <section class="intro">
-        <div class="chip rise"><i></i>ONLINE EXHIBITION</div>
-        <div class="school rise" style="--i:1">${EXHIBIT.school} 온라인 전시관</div>
-        <h1 class="rise" style="--i:2">${EXHIBIT.titleLines.join('<br>')}<br><span class="grad-text">${EXHIBIT.titleHighlight}</span></h1>
-        ${site}
-        <div class="hint rise" style="--i:4">보고 싶은 전시관을 눌러 보세요 ${icon('open')}</div>
-      </section>
-      <section class="halls">
-        ${EXHIBIT.halls.map((h, i) => `
-          <button class="hall-card bubble press rise" style="${hallVars(h)};--i:${i + 2}" data-go="${h.id}">
-            <div class="art">${icon(h.icon)}</div>
-            <div class="top"><span class="no">${pad(i + 1)}</span><span class="en-tag">${h.en}</span></div>
-            <h2>${h.name}</h2>
-            ${h.desc ? `<p>${h.desc}</p>` : ''}
-            <span class="arrow">${icon('arrow')}</span>
-          </button>`).join('')}
-      </section>
-    </div>`;
-}
-
-/* ---------- 전시관 내부: 아직 준비 중 ---------- */
-const inner = document.getElementById('inner');
-const ibody = document.getElementById('ibody');
-
 function openInner(hall, url) {
   inner.setAttribute('style', hallVars(hall));
   ibody.classList.toggle('dark', !!hall.dark);   // 영상은 검은 바탕
-  document.getElementById('iback').innerHTML = `${icon('back')}처음으로`;
-  document.getElementById('iback').onclick = () => { location.hash = ''; };
+  const back = document.getElementById('iback');
+  back.innerHTML = `${icon('back')}처음으로`;
+  back.onclick = () => { location.hash = ''; };
   document.getElementById('ien').textContent = hall.en;
   document.getElementById('ititle').textContent = plain(hall.name);
   ibody.innerHTML = url
@@ -255,6 +386,7 @@ function openInner(hall, url) {
          <p>전시 내용을 준비하고 있어요.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
        </div>`;
   inner.hidden = false;
+  clearInterval(autoTimer);
 }
 
 function closeInner() {
@@ -264,6 +396,7 @@ function closeInner() {
     inner.classList.remove('leaving');
     inner.hidden = true;
     ibody.innerHTML = '';
+    startAuto();
   }, 320);
 }
 
@@ -271,13 +404,11 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-go]');
   if (!t) return;
   const hall = hallById(t.dataset.go);
-  if (t.classList.contains('bubble') && hall) return revealInto(t, hall);
-  location.hash = t.dataset.go;
+  if (hall) return revealInto(t, hall);
 });
 
-/* 누른 원이 커지며 화면을 덮은 뒤 전시관으로 들어갑니다 */
+/* 누른 카드가 둥글게 번지며 화면을 덮은 뒤 전시관으로 들어갑니다 */
 function revealInto(el, hall) {
-  el.classList.add('tapped');
   const r = el.getBoundingClientRect();
   const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
   const size = Math.min(r.width, r.height);
@@ -291,7 +422,6 @@ function revealInto(el, hall) {
   });
   setTimeout(() => {
     location.hash = hall.id;
-    el.classList.remove('tapped');
     requestAnimationFrame(() => { d.style.opacity = '0'; });
     setTimeout(() => d.remove(), 500);
   }, 430);
