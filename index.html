@@ -19,7 +19,13 @@
     손대지 않으면 4.5초마다 저절로 옆 카드로 넘어갑니다.
   · 카드를 한 번 누르면 바로 그 전시관으로 들어갑니다. (손가락이 닿는 순간 그 카드가 펼쳐져 눌린 것이 보입니다.)
   · 세로로 세운 스탠바이미에서는 카드가 위아래로 쌓입니다.
-  · 이전 디자인(사각형 카드)은 보관 폴더의 index_20261015_이전본_사각형카드.html 에 두었습니다.
+  · 전시관은 네 곳입니다: 연구학교 소개관 · Hi AI와 성장하는 학생 High 5 · Hi AI와 성장하는 교사 High 5 · 연구학교 영상관
+  · 학생·교사 전시관에 들어가면 볼거리를 고르는 화면이 먼저 나옵니다.
+    하나를 연 뒤에도 위쪽 단추로 다른 볼거리로 바로 넘어갈 수 있습니다.
+  · 연구학교 소개관 카드를 누르면 연구학교 홈페이지가 새 창으로 열립니다.
+  · 이전 디자인은 보관 폴더에 두었습니다. (사각형 카드: index_20261015_이전본_사각형카드.html,
+    패들렛 하나만 있던 판: index_20261019_이전본_패들렛1개.html,
+    교사 역량 강화관 패들렛 고르기 판: index_20261020_이전본_패들렛고르기.html)
     다른 시안들은 시안 폴더에 있습니다.
 -->
 <style>
@@ -201,6 +207,70 @@
   .soon h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -.025em; }
   .soon p { margin-top: .7rem; font-size: 1.1rem; color: var(--ink-2); line-height: 1.6; }
 
+  /* ---------- 전시관 안 '고르기' 화면 (교사 역량 강화관) ---------- */
+  .pick { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 1.5rem; padding: 2.6rem 3.4rem 2.8rem; overflow: auto; }
+  .pick-head .lead { font-size: 1.15rem; line-height: 1.6; color: var(--ink-2); }
+  .pick-head .lead b { color: #fff; }
+  /* High 5 역량 설명 — 다섯 칸 */
+  .high5 h3 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+  .high5 h3 small { font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+  .high5 ol { list-style: none; margin-top: 1rem; display: grid; grid-template-columns: repeat(5, 1fr); gap: .8rem; }
+  .high5 li { padding: 1rem 1.1rem 1.1rem; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid var(--line); }
+  .high5 li b { display: flex; align-items: center; gap: .55rem; font-size: 1.12rem; font-weight: 700; }
+  .high5 li b i { width: 1.6rem; height: 1.6rem; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+                  font-style: normal; font-size: .85rem; background: var(--g1); color: #fff; }
+  .high5 + .boards .board h3 { font-size: 2.2rem; margin-top: .8rem; }
+  .high5 + .boards .board { padding-top: 1.9rem; padding-bottom: 1.8rem; }
+  .high5 li span { display: block; margin-top: .45rem; font-size: .95rem; line-height: 1.5; color: var(--ink-2); }
+  .boards { flex: 1 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  .board {
+    position: relative; overflow: hidden; isolation: isolate; min-height: 0;
+    display: flex; flex-direction: column; padding: 2.3rem 2.4rem 2.1rem; border-radius: 30px;
+    background: linear-gradient(140deg, var(--b1), var(--b2)); color: #fff;
+    border: 1px solid rgba(255,255,255,.22); box-shadow: 0 28px 56px -26px rgba(0,0,0,.7);
+    transition: transform .25s cubic-bezier(.2,.75,.2,1);
+  }
+  .board:active { transform: scale(.98); }
+  .board .tag { align-self: flex-start; display: inline-flex; align-items: center; gap: .45rem;
+    padding: .38rem .9rem; border-radius: 999px; font-size: .88rem; font-weight: 700;
+    background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35); }
+  .board .tag svg { width: 1rem; height: 1rem; }
+  .board h3 { margin-top: 1.1rem; font-size: 2.55rem; font-weight: 700; line-height: 1.15; letter-spacing: -.03em; }
+  .board h3 em { font-style: normal; font-family: var(--display); color: #fff3c4; }
+  .board .what { margin-top: .9rem; font-size: 1.08rem; line-height: 1.6; color: rgba(255,255,255,.9); max-width: 19em; }
+  .board .chips { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .board .chips span { padding: .42rem .95rem; border-radius: 999px; font-size: .95rem; font-weight: 700;
+    background: #fff; color: var(--b1); }
+  .board .go { margin-top: auto; padding-top: 1.6rem; display: flex; align-items: center; justify-content: space-between; }
+  .board .go span:first-child { font-size: 1.1rem; font-weight: 700; }
+  .board .go .dot { width: 3.6rem; height: 3.6rem; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--b1); }
+  .board .go .dot svg { width: 1.4rem; height: 1.4rem; }
+  /* 카드 오른쪽 위 장식 그림 */
+  /* 카드 오른쪽 위 아이콘 하나 — 글자와 겹치지 않도록 글자 쪽은 오른쪽을 비워 둡니다 */
+  .board .badge { position: absolute; top: 2.1rem; right: 2.1rem; width: 5.2rem; height: 5.2rem; border-radius: 50%;
+                  display: grid; place-items: center; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.32); }
+  .board .badge svg { width: 2.5rem; height: 2.5rem; color: #fff; }
+  .board .tag, .board h3, .board .what, .board .chips, .board .by { margin-right: 6.4rem; }
+  .board .by { margin-top: .9rem; display: flex; align-items: center; gap: .5rem; font-size: 1rem; font-weight: 700; }
+  .board .by svg { width: 1.2rem; height: 1.2rem; }
+  /* 볼거리가 두 개 이상인 카드 — 아래쪽에 흰 단추가 쌓입니다 */
+  .board.multi:active { transform: none; }
+  .board .links { margin-top: auto; padding-top: 1.5rem; display: grid; gap: .7rem; }
+  .board .links button { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .75rem .8rem .75rem 1.3rem; border-radius: 18px; background: #fff; color: var(--b1);
+    font-size: 1.12rem; font-weight: 700; transition: transform .25s cubic-bezier(.2,.75,.2,1); }
+  .board .links button:active { transform: scale(.97); }
+  .board .links .dot { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--b1); color: #fff; flex-shrink: 0; }
+  .board .links .dot svg { width: 1.1rem; height: 1.1rem; }
+
+  /* 패들렛을 연 뒤 위쪽에 나오는 '다른 패들렛' 전환 단추 */
+  .seg { margin-left: auto; display: flex; gap: .3rem; padding: .3rem; border-radius: 999px;
+         background: rgba(255,255,255,.1); border: 1px solid var(--line); }
+  .seg[hidden] { display: none; }
+  .seg button { min-height: 3rem; padding: 0 1.3rem; border-radius: 999px; font-size: 1rem; font-weight: 700; color: var(--ink-2);
+                transition: background .3s, color .3s; }
+  .seg button.on { background: var(--b1, #fff); color: #fff; }
+
   /* ---------- 세로로 세운 스탠바이미 ---------- */
   @media (orientation: portrait) {
     .page { padding: 3rem 2.4rem 2.2rem; gap: 1.8rem; }
@@ -218,6 +288,17 @@
     .hall.on .shot { flex-basis: 11rem; }
     .hall .shot .in { top: 1rem; bottom: 1rem; right: 1rem; width: 10rem; border-radius: 18px; }
     .hint { display: none; }
+    .pick { padding: 2.2rem 2.2rem 2.4rem; gap: 1.4rem; }
+    .high5 ol { grid-template-columns: 1fr; gap: .5rem; }
+    .high5 li { display: flex; align-items: baseline; gap: 1rem; padding: .75rem 1rem; }
+    .high5 li b { flex-shrink: 0; width: 9.5rem; }
+    .high5 li span { margin-top: 0; }
+    .boards { grid-template-columns: 1fr; }
+    .board { padding: 2rem 2rem 1.8rem; }
+    .board h3 { font-size: 2.3rem; }
+    .board .badge { top: 1.8rem; right: 1.8rem; width: 4.4rem; height: 4.4rem; }
+    .board .badge svg { width: 2.1rem; height: 2.1rem; }
+    .seg button { padding: 0 .9rem; font-size: .92rem; }
   }
 </style>
 </head>
@@ -230,6 +311,7 @@
     <button class="pill-btn press" id="iback"></button>
     <div class="mark"></div>
     <div class="t"><small id="ien"></small><strong id="ititle"></strong></div>
+    <div class="seg" id="iseg" hidden></div>
   </div>
   <div class="ibody" id="ibody"></div>
 </div>
@@ -243,9 +325,16 @@
    colors : 전시관 대표색 [진한 색, 중간 색] — 화살표 단추와 화면 전환에 쓰입니다
    tint   : 카드 바탕 색 [왼쪽 위, 오른쪽 아래] — 글자가 흰색이므로 충분히 진한 색으로 적으세요
    shot   : 펼쳐졌을 때 열리는 그림칸 색 [시작색, 끝색] — tint 보다 더 연하게 적으세요
-   icon   : school · lesson · people · play
+   icon   : school · lesson · people · play · robot · pencil · code
    img    : (없어도 됩니다) 'files/사진.jpg' 처럼 적으면 그림칸에 그 사진이 들어갑니다
    url    : (없어도 됩니다) 적으면 전시관 안에서 그 사이트가 바로 열립니다
+   link   : (없어도 됩니다) 적으면 카드를 눌렀을 때 그 사이트가 새 창으로 열립니다
+            (구글 사이트처럼 다른 페이지 안에 넣을 수 없는 곳에 씁니다)
+   boards : (없어도 됩니다) 전시관 안에서 고를 수 있는 볼거리 카드 — 아래 학생·교사 전시관을 보세요
+            by 에는 만든 선생님, links 에는 [{ id, label, url }] 를 적습니다 (두 개 이상이면 카드 안에 단추가 생깁니다)
+            링크에 newTab: true 를 붙이면 전시관 안이 아닌 새 창으로 열립니다
+   high5  : (없어도 됩니다) 볼거리 고르기 화면 위쪽에 나오는 High 5 역량 설명 { title, intro, items: [{ name, desc }] }
+            url 을 비워 두면 '준비 중' 화면이 나옵니다
    ===================================================================== */
 const EXHIBIT = {
   // 위쪽 배너 — 학교 이름이 작은 윗줄, 전시관 이름이 큰 아랫줄입니다.
@@ -259,11 +348,67 @@ const EXHIBIT = {
   siteUrl: 'https://sites.google.com/view/majangcho26/home',
   siteLabel: '연구학교 홈페이지',
   halls: [
-    { id: 'intro',   name: '연구학교<br>소개관',      en: 'ABOUT',     desc: '연구학교가 걸어온 길과 그 성과를 소개해요.',     colors: ['#c94a73', '#eb97b0'], tint: ['#cf3a71', '#e8629a'], shot: ['#fde7ef', '#fef6f9'], icon: 'school' },
-    { id: 'class',   name: 'High AI, Hi 5<br>수업관', en: 'CLASSROOM', desc: 'AI와 함께 탐구하고 표현한 우리 교실 이야기',     colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'lesson' },
-    { id: 'teacher', name: '교사 역량<br>강화관',      en: 'TEACHERS',  desc: '함께 배우고 나누며 성장한 선생님들의 기록',       colors: ['#d1701f', '#f0a357'], tint: ['#cf6413', '#ea8b33'], shot: ['#fdeeda', '#fef8f1'], icon: 'people',
-      url: 'https://padlet.com/embed/s023leshyly7poik17fj' },   // AI 에듀테크 교사 동아리 패들렛
-    { id: 'video',   name: '영상관',                  en: 'VIDEO',     desc: '교육활동 현장을 영상으로 생생하게 만나요.',       colors: ['#1f74c4', '#6cb3ef'], tint: ['#1a6cc4', '#3a92e2'], shot: ['#e2eefb', '#f3f8fd'], icon: 'play',
+    { id: 'intro',   name: '연구학교<br>소개관',                en: 'ABOUT',    desc: '연구학교 홈페이지에서 연구학교의 전체 흐름을 살펴봐요.',
+      colors: ['#c94a73', '#eb97b0'], tint: ['#cf3a71', '#e8629a'], shot: ['#fde7ef', '#fef6f9'], icon: 'school',
+      link: 'https://sites.google.com/view/majangcho26/home' },   // 연구학교 홈페이지 (새 창)
+
+    { id: 'student', name: 'Hi\u00a0AI와 성장하는<br>학생 High\u00a05',  en: 'STUDENTS', desc: 'Hi AI 소개와, AI와 함께 탐구하고 표현한 우리 교실 이야기',
+      colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'lesson',
+      lead: 'Hi AI를 알아보고, AI와 함께 탐구하고 표현한 우리 교실 이야기를 만나 보세요.',
+      // 연구보고서 'High 5' 정의에서 가져온 설명
+      high5: {
+        title: '학생 High 5',
+        intro: 'OECD 학습나침반 2030과 2022 개정 교육과정의 핵심 역량을 바탕으로, 우리 학교 학생들이 수업 속에서 기르는 다섯 가지 역량이에요.',
+        items: [
+          { name: '창의적 문제해결', desc: '배운 개념을 새로운 상황에 적용해 문제를 해결해요' },
+          { name: '의사소통',       desc: '자신의 생각을 분명하게 표현하고 나눠요' },
+          { name: '자기주도',       desc: '스스로 질문하고 탐구하며 배워요' },
+          { name: '공동체',         desc: '디지털 공간에서도 책임 있는 구성원으로 행동해요' },
+          { name: '비판적 사고',     desc: 'AI가 만든 정보를 비판적으로 검증해요' },
+        ] },
+      boards: [
+        { id: 'about', name: 'Hi AI 소개', tag: 'Hi AI 알아보기', icon: 'robot',
+          what: '우리 학교 수업에서 함께하는 Hi AI를 소개해요.',
+          colors: ['#0f7d52', '#27a372'],
+          links: [{ id: 'hiai', label: 'Hi AI 소개', url: '' }] },              // ← 연결 사이트 주소
+        { id: 'story', name: '우리 교실 이야기', tag: '학생 디지털 활동', icon: 'lesson',
+          what: 'AI와 함께 탐구하고 표현한 우리 교실 이야기 — 학생들의 디지털 활동 모습을 만나요.',
+          colors: ['#0d7468', '#23988a'],
+          links: [{ id: 'story', label: '우리 교실 이야기', url: '' }] },        // ← 연결 사이트 주소
+      ] },
+
+    { id: 'teacher', name: 'Hi\u00a0AI와 성장하는<br>교사 High\u00a05',  en: 'TEACHERS', desc: 'Hi AI 수업 설계 체험과 선생님들의 Vibe ON · AI 교사동아리 자료집',
+      colors: ['#d1701f', '#f0a357'], tint: ['#cf6413', '#ea8b33'], shot: ['#fdeeda', '#fef8f1'], icon: 'people',
+      lead: 'Hi AI 개념기반 탐구학습 수업을 직접 설계해 보고, 선생님들이 함께 만든 자료를 만나 보세요.',
+      // 연구보고서 'High 5' 정의에서 가져온 설명
+      high5: {
+        title: '교사 High 5',
+        intro: '교실 혁명의 핵심 가치를 바탕으로, AI 시대에 선생님이 갖추고 발휘하는 다섯 가지 역량이에요.',
+        items: [
+          { name: '존엄성', desc: '학생마다의 다름을 존중해요' },
+          { name: '전문성', desc: '개념기반 탐구수업을 설계하고 평가해요' },
+          { name: '개별화', desc: '학습 데이터를 바탕으로 개별 지도해요' },
+          { name: '주도성', desc: '수업 설계자로서 주체적으로 판단해요' },
+          { name: '협력',   desc: '동료 교사와 함께 수업을 연구해요' },
+        ] },
+      boards: [
+        { id: 'design', name: '개념기반 탐구학습<br>수업 설계 체험', tag: 'Hi AI 수업 설계', icon: 'pencil', by: '김나영 선생님',
+          what: 'Hi AI로 개념기반 탐구학습 수업을 직접 설계해 보는 체험이에요.',
+          colors: ['#c4560f', '#ec8a2e'],
+          links: [{ id: 'design', label: '수업 설계 체험', url: 'https://lesson.ssambox.com/', newTab: true }] },
+          // ↑ 로그인(비밀번호)이 걸린 사이트라 전시관 안이 아닌 새 창으로 엽니다
+        { id: 'share', name: '교사 Vibe ON &amp;<br>AI 교사동아리 자료집', tag: '함께 성장하는 선생님', icon: 'people', by: '김나영 · 송태용 선생님',
+          what: '바이브 코딩으로 직접 만든 수업 자료와 AI 교사동아리 자료집을 소개해요.',
+          chips: ['#교사 주도성', '#학생 맞춤형 수업'],
+          colors: ['#b8402f', '#e2705a'],
+          links: [
+            { id: 'vibe', label: '마장 Vibe ON',        url: 'https://padlet.com/embed/lkqusx1e86deevog' },   // 2026 마장 VIBE ON 패들렛
+            { id: 'club', label: 'AI 교사동아리 자료집', url: 'https://padlet.com/embed/s023leshyly7poik17fj' }, // AI 에듀테크 교사 동아리 패들렛
+          ] },
+      ] },
+
+    { id: 'video',   name: '연구학교<br>영상관',                en: 'VIDEO',    desc: '교육활동 현장을 영상으로 생생하게 만나요.',
+      colors: ['#1f74c4', '#6cb3ef'], tint: ['#1a6cc4', '#3a92e2'], shot: ['#e2eefb', '#f3f8fd'], icon: 'play',
       url: 'https://www.youtube-nocookie.com/embed/sIxWlQljAe4?rel=0&playsinline=1', dark: true },
   ],
   // 아무도 손대지 않을 때 카드가 저절로 넘어가는 간격(초). 0 으로 적으면 넘어가지 않습니다.
@@ -280,6 +425,10 @@ const ICONS = {
   back:   '<path d="M15 5l-7 7 7 7"/>',
   arrow:  '<path d="M7 17L17 7M9 7h8v8"/>',
   open:   '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  robot:  '<rect x="4.5" y="8" width="15" height="11" rx="3.5"/><path d="M12 4.5V8M9.2 13.2h.01M14.8 13.2h.01M2.5 12.5v3M21.5 12.5v3"/>',
+  pencil: '<path d="M4 20l1-4.2L16.3 4.5a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.2 19 4 20z"/><path d="M14.5 6.3l3.2 3.2"/>',
+  user:   '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+  code:   '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/>',
   globe:  '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
 };
 const icon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
@@ -312,7 +461,7 @@ function renderHome() {
             <div class="body">
               <h2>${h.name}</h2>
               ${h.desc ? `<p>${h.desc}</p>` : ''}
-              <div class="go"><span>들어가기</span><span class="dot">${icon('arrow')}</span></div>
+              <div class="go"><span>${h.link ? '바로 가기' : '들어가기'}</span><span class="dot">${icon('arrow')}</span></div>
             </div>
             <div class="shot"><div class="in">${h.img ? `<img src="${h.img}" alt="">` : icon(h.icon)}</div></div>
           </button>`).join('')}
@@ -359,34 +508,91 @@ document.addEventListener('pointerdown', e => {
 const inner = document.getElementById('inner');
 const ibody = document.getElementById('ibody');
 
+/* 주소 뒤 # 부분으로 화면을 정합니다.  #teacher → 볼거리 고르기,  #teacher/vibe → 그 볼거리 */
 function route() {
-  const id = location.hash.slice(1);
+  const [id, sub] = location.hash.slice(1).split('/');
   if (!document.querySelector('.page')) renderHome();
   const hall = hallById(id);
-  if (hall) return openInner(hall, hall.url || '');
-  closeInner();
+  if (!hall) return closeInner();
+  if (hall.boards) {
+    const board = hall.boards.find(b => b.links.some(l => l.id === sub));
+    return board ? openBoard(hall, board, board.links.find(l => l.id === sub)) : openPick(hall);
+  }
+  openInner(hall, {
+    body: hall.url ? framed(hall.url) : soon(hall.icon, plain(hall.name)),
+    dark: hall.dark,                                   // 영상은 검은 바탕
+  });
 }
 window.addEventListener('hashchange', route);
 
-function openInner(hall, url) {
+const framed = url => `
+  <div class="loading" id="iloading"><div class="spin"></div>불러오는 중…</div>
+  <iframe src="${url}" allow="fullscreen; clipboard-write" allowfullscreen
+          onload="setTimeout(()=>document.getElementById('iloading')?.remove(), 1200)"></iframe>`;
+const soon = (ic, title) => `
+  <div class="soon">
+    <div class="glow">${icon(ic)}</div>
+    <h2>${title}</h2>
+    <p>전시 내용을 준비하고 있어요.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
+  </div>`;
+
+function openInner(hall, { body, dark = false, backLabel = '처음으로', backTo = '', seg = '' }) {
   inner.setAttribute('style', hallVars(hall));
-  ibody.classList.toggle('dark', !!hall.dark);   // 영상은 검은 바탕
+  ibody.classList.toggle('dark', !!dark);
   const back = document.getElementById('iback');
-  back.innerHTML = `${icon('back')}처음으로`;
-  back.onclick = () => { location.hash = ''; };
+  back.innerHTML = `${icon('back')}${backLabel}`;
+  back.onclick = () => { location.hash = backTo; };
   document.getElementById('ien').textContent = hall.en;
   document.getElementById('ititle').textContent = plain(hall.name);
-  ibody.innerHTML = url
-    ? `<div class="loading" id="iloading"><div class="spin"></div>불러오는 중…</div>
-       <iframe src="${url}" allow="fullscreen; clipboard-write" allowfullscreen
-               onload="setTimeout(()=>document.getElementById('iloading')?.remove(), 1200)"></iframe>`
-    : `<div class="soon">
-         <div class="glow">${icon(hall.icon)}</div>
-         <h2>${plain(hall.name)}</h2>
-         <p>전시 내용을 준비하고 있어요.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
-       </div>`;
+  const segEl = document.getElementById('iseg');
+  segEl.innerHTML = seg;
+  segEl.hidden = !seg;
+  ibody.innerHTML = body;
   inner.hidden = false;
   clearInterval(autoTimer);
+}
+
+/* 볼거리 고르기 화면 */
+function openPick(hall) {
+  const card = (b, i) => {
+    const one = b.links.length === 1;
+    const attrs = `class="board rise${one ? '' : ' multi'}" style="--b1:${b.colors[0]};--b2:${b.colors[1]};--i:${i + 1}"`;
+    const inside = `
+      <span class="badge">${icon(b.icon)}</span>
+      <span class="tag">${b.tag}</span>
+      <h3>${b.name}</h3>
+      ${b.by ? `<div class="by">${icon('user')}${b.by}</div>` : ''}
+      <p class="what">${b.what}</p>
+      ${b.chips ? `<div class="chips">${b.chips.map(c => `<span>${c}</span>`).join('')}</div>` : ''}
+      ${one
+        ? `<div class="go"><span>${b.links[0].newTab ? '새 창으로 열기' : '보러 가기'}</span><span class="dot">${icon(b.links[0].newTab ? 'arrow' : 'open')}</span></div>`
+        : `<div class="links">${b.links.map(l => `
+            <button data-board="${hall.id}/${l.id}"><span>${l.label}</span><span class="dot">${icon('open')}</span></button>`).join('')}
+          </div>`}`;
+    return one
+      ? `<button ${attrs} data-board="${hall.id}/${b.links[0].id}">${inside}</button>`
+      : `<div ${attrs}>${inside}</div>`;
+  };
+  openInner(hall, { body: `
+    <div class="pick">
+      ${hall.high5 ? `
+        <section class="high5 rise">
+          <h3>${hall.high5.title}<small>${hall.high5.intro}</small></h3>
+          <ol>${hall.high5.items.map((it, n) => `<li><b><i>${n + 1}</i>${it.name}</b><span>${it.desc}</span></li>`).join('')}</ol>
+        </section>` : ''}
+      ${hall.high5 ? '' : `<div class="pick-head rise"><p class="lead">${hall.lead || ''}</p></div>`}
+      <div class="boards">${hall.boards.map(card).join('')}</div>
+    </div>` });
+}
+
+/* 볼거리 하나를 연 화면 — 위쪽 단추로 다른 볼거리로 바로 넘어갑니다 */
+function openBoard(hall, board, link) {
+  openInner(hall, {
+    body: link.url ? framed(link.url) : soon(board.icon, link.label),
+    backLabel: '목록으로', backTo: hall.id,
+    seg: hall.boards.flatMap(b => b.links.map(l => `
+      <button class="${l.id === link.id ? 'on' : ''}" style="--b1:${b.colors[0]}" data-board="${hall.id}/${l.id}">${l.label}</button>`)).join(''),
+  });
 }
 
 function closeInner() {
@@ -401,9 +607,18 @@ function closeInner() {
 }
 
 document.addEventListener('click', e => {
+  const b = e.target.closest('[data-board]');
+  if (b) {
+    const [hid, lid] = b.dataset.board.split('/');
+    const link = (hallById(hid)?.boards || []).flatMap(x => x.links).find(l => l.id === lid);
+    if (link && link.newTab && link.url) window.open(link.url, '_blank', 'noopener');   // 새 창으로 여는 볼거리
+    else location.hash = b.dataset.board;
+    return;
+  }
   const t = e.target.closest('[data-go]');
   if (!t) return;
   const hall = hallById(t.dataset.go);
+  if (hall && hall.link) return window.open(hall.link, '_blank', 'noopener');   // 새 창으로 여는 전시관
   if (hall) return revealInto(t, hall);
 });
 
