@@ -14,7 +14,7 @@
 
   · 바탕은 보라에서 파랑으로 번지는 어두운 그라데이션입니다.
     사진 파일을 쓰지 않고 색으로 그려서, 가로로 눕히든 세로로 세우든 흐려지지 않습니다.
-  · 카드는 전시관마다 다른 진한 색으로 꽉 채웠습니다(분홍·초록·주황·파랑). 글자는 카드 안팎 모두 흰색입니다.
+  · 카드는 전시관마다 다른 진한 색으로 꽉 채웠습니다(분홍·파랑·주황·초록). 글자는 카드 안팎 모두 흰색입니다.
   · 카드 한 장이 옆으로 넓어지면서 오른쪽에 아주 연한 색 그림칸이 열립니다.
     손대지 않으면 4.5초마다 저절로 옆 카드로 넘어갑니다.
   · 카드를 한 번 누르면 바로 그 전시관으로 들어갑니다. (손가락이 닿는 순간 그 카드가 펼쳐져 눌린 것이 보입니다.)
@@ -132,7 +132,7 @@
   .hall .body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; padding: 2.2rem 2.2rem 2rem; }
   .hall h2 { font-size: 2.15rem; font-weight: 700; line-height: 1.22; letter-spacing: -.025em; }
   .hall p {
-    margin-top: 1rem; font-size: 1.02rem; line-height: 1.55; color: var(--card-ink-2); max-width: 17em;
+    margin-top: 1rem; font-size: 1.02rem; line-height: 1.55; color: var(--card-ink-2); max-width: 22em;
     opacity: .18; transition: opacity .55s ease;
   }
   .hall.on p { opacity: 1; }
@@ -212,17 +212,17 @@
   .pick-head .lead { font-size: 1.15rem; line-height: 1.6; color: var(--ink-2); }
   .pick-head .lead b { color: #fff; }
   /* High 5 역량 설명 — 다섯 칸 */
-  .high5 h3 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
-  .high5 h3 small { font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+  .high5 h3 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; font-size: 1.85rem; font-weight: 700; letter-spacing: -.02em; }
+  .high5 h3 small { font-size: 1.2rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
   .high5 ol { list-style: none; margin-top: 1rem; display: grid; grid-template-columns: repeat(5, 1fr); gap: .8rem; }
-  .high5 li { padding: 1rem 1.1rem 1.1rem; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid var(--line); }
-  .high5 li b { display: flex; align-items: center; gap: .55rem; font-size: 1.12rem; font-weight: 700; }
-  .high5 li b i { width: 1.6rem; height: 1.6rem; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+  .high5 li { padding: 1.2rem 1.3rem 1.3rem; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid var(--line); }
+  .high5 li b { display: flex; align-items: center; gap: .6rem; font-size: 1.35rem; font-weight: 700; }
+  .high5 li b i { width: 1.8rem; height: 1.8rem; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
                   font-style: normal; font-size: .85rem; background: var(--g1); color: #fff; }
   .high5 + .boards .board h3 { font-size: 2.2rem; margin-top: .8rem; }
   .high5 + .boards .board { padding-top: 1.9rem; padding-bottom: 1.8rem; }
-  .high5 li span { display: block; margin-top: .45rem; font-size: .95rem; line-height: 1.5; color: var(--ink-2); }
-  .boards { flex: 1 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  .high5 li span { display: block; margin-top: .5rem; font-size: 1.15rem; line-height: 1.5; color: var(--ink-2); }
+  .boards { flex: 0 0 auto; display: grid;   /* 화면을 채우지 않고 내용 높이만큼만 */ grid-template-columns: 1fr 1fr; gap: 1.6rem; }
   .board {
     position: relative; overflow: hidden; isolation: isolate; min-height: 0;
     display: flex; flex-direction: column; padding: 2.3rem 2.4rem 2.1rem; border-radius: 30px;
@@ -232,17 +232,17 @@
   }
   .board:active { transform: scale(.98); }
   .board .tag { align-self: flex-start; display: inline-flex; align-items: center; gap: .45rem;
-    padding: .38rem .9rem; border-radius: 999px; font-size: .88rem; font-weight: 700;
+    padding: .4rem 1rem; border-radius: 999px; font-size: 1rem; font-weight: 700;
     background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35); }
   .board .tag svg { width: 1rem; height: 1rem; }
   .board h3 { margin-top: 1.1rem; font-size: 2.55rem; font-weight: 700; line-height: 1.15; letter-spacing: -.03em; }
   .board h3 em { font-style: normal; font-family: var(--display); color: #fff3c4; }
-  .board .what { margin-top: .9rem; font-size: 1.08rem; line-height: 1.6; color: rgba(255,255,255,.9); max-width: 19em; }
+  .board .what { margin-top: .9rem; font-size: 1.28rem; line-height: 1.6; color: rgba(255,255,255,.92); max-width: 26em; }
   .board .chips { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem; }
-  .board .chips span { padding: .42rem .95rem; border-radius: 999px; font-size: .95rem; font-weight: 700;
+  .board .chips span { padding: .45rem 1rem; border-radius: 999px; font-size: 1.08rem; font-weight: 700;
     background: #fff; color: var(--b1); }
   .board .go { margin-top: auto; padding-top: 1.6rem; display: flex; align-items: center; justify-content: space-between; }
-  .board .go span:first-child { font-size: 1.1rem; font-weight: 700; }
+  .board .go span:first-child { font-size: 1.25rem; font-weight: 700; }
   .board .go .dot { width: 3.6rem; height: 3.6rem; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--b1); }
   .board .go .dot svg { width: 1.4rem; height: 1.4rem; }
   /* 카드 오른쪽 위 장식 그림 */
@@ -274,15 +274,15 @@
   /* ---------- Hi AI 소개 (전시관 안 읽을거리) ----------
      칸마다 --rgb 로 색을 줍니다 (예: --rgb: 94,164,255). 글자는 흰색, 번호·제목 줄·테두리만 그 색으로 물듭니다. */
   .doc { flex: 1; min-height: 0; overflow: auto; padding: 2.4rem 3.4rem 3rem; display: flex; flex-direction: column; gap: 2.6rem; }
-  .doc h2 { font-size: 2.6rem; font-weight: 700; letter-spacing: -.03em; }
+  .doc h2 { font-size: 3rem; font-weight: 700; letter-spacing: -.03em; }
   .doc h2 .hi { background: linear-gradient(90deg, #6fb3ff, #b48bff 55%, #ff8fc4); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .doc .kicker { font-family: var(--display); font-size: .9rem; font-weight: 700; letter-spacing: .18em; color: #8fc3ff; }
+  .doc .kicker { font-family: var(--display); font-size: 1rem; font-weight: 700; letter-spacing: .18em; color: #8fc3ff; }
   .doc .intro { margin-top: 1rem; display: flex; flex-direction: column; gap: .7rem; }
-  .doc .intro p { font-size: 1.22rem; line-height: 1.75; color: var(--ink-2); }
+  .doc .intro p { font-size: 1.42rem; line-height: 1.75; color: var(--ink-2); }
   .doc .intro b { color: #fff; }
   .doc .intro b.c1 { color: #8fc3ff; } .doc .intro b.c2 { color: #ff9fca; } .doc .intro b.c3 { color: #ffd27a; }
-  .doc h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem .8rem; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 1rem; }
-  .doc h3 small { font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+  .doc h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem .8rem; font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 1rem; }
+  .doc h3 small { font-size: 1.15rem; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .tile { --rgb: 255,255,255; padding: 1.4rem 1.5rem 1.5rem; border-radius: 22px;
           background: linear-gradient(160deg, rgba(var(--rgb), .22), rgba(var(--rgb), .05) 70%);
@@ -290,15 +290,18 @@
   .tile .no { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: grid; place-items: center; font-weight: 700;
               background: rgb(var(--rgb)); color: #0d1033; }
   .tile .no svg { width: 1.3rem; height: 1.3rem; }
-  .tile h4 { margin-top: .9rem; font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
-  .tile h4 small { display: block; margin-top: .2rem; font-family: var(--display); font-size: .82rem; letter-spacing: .06em; color: rgb(var(--rgb)); }
-  .tile p { margin-top: .6rem; font-size: 1.02rem; line-height: 1.7; color: rgba(255,255,255,.86); }
-  .tile dl { margin-top: .9rem; display: grid; gap: .3rem; font-size: .98rem; line-height: 1.65; }
-  .tile dt { margin-top: .35rem; font-size: .85rem; font-weight: 700; color: rgb(var(--rgb)); }
+  .tile h4 { margin-top: .9rem; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+  .tile h4 small { display: block; margin-top: .2rem; font-family: var(--display); font-size: .95rem; letter-spacing: .06em; color: rgb(var(--rgb)); }
+  .tile p { margin-top: .6rem; font-size: 1.2rem; line-height: 1.7; color: rgba(255,255,255,.86); }
+  .tiles.one-line .tile p { letter-spacing: -.02em; }   /* 세 가지 지원 원리 — 한 줄에 들어가도록 */
+  .tile dl { margin-top: .9rem; display: grid; gap: .3rem; font-size: 1.15rem; line-height: 1.65; }
+  .tile dt { margin-top: .35rem; font-size: 1rem; font-weight: 700; color: rgb(var(--rgb)); }
   .tile dd { color: rgba(255,255,255,.86); }
   /* 수업 흐름 — 3단계 */
   .flow { display: grid; grid-template-columns: 1fr 2.4fr 1fr; gap: 1.2rem; align-items: stretch; }
   .flow .tile { position: relative; }
+  .flow .tile .head { display: flex; align-items: center; gap: .75rem; }   /* 번호와 제목을 한 줄에 */
+  .flow .tile .head h4 { margin-top: 0; }
   .flow .tile:not(:last-child)::after { content: "▶"; position: absolute; right: -1.05rem; top: 50%; transform: translateY(-50%);
     font-size: .85rem; color: rgba(255,255,255,.6); z-index: 1; }
   .steps { margin-top: 1rem; display: flex; align-items: stretch; gap: .5rem; }
@@ -306,10 +309,10 @@
                background: rgba(var(--rgb), .14); border-top: 3px solid rgb(var(--rgb)); }
   .steps .deep { flex: 3; display: flex; flex-direction: column; gap: .5rem; padding: .6rem; border-radius: 16px;
                  background: rgba(255,255,255,.05); border: 1px dashed rgba(255,255,255,.3); }
-  .steps .deep > b { padding-left: .2rem; font-size: .85rem; color: rgba(255,255,255,.75); }
+  .steps .deep > b { text-align: center; font-size: 1rem; color: rgba(255,255,255,.75); }
   .steps .deep > div { flex: 1; display: flex; gap: .5rem; }
-  .steps strong { display: block; font-size: 1.02rem; font-weight: 700; color: rgb(var(--rgb)); }
-  .steps span { display: block; margin-top: .3rem; font-size: .88rem; line-height: 1.55; color: rgba(255,255,255,.85); }
+  .steps strong { display: block; font-size: 1.18rem; font-weight: 700; color: rgb(var(--rgb)); }
+  .steps span { display: block; margin-top: .3rem; font-size: 1.02rem; line-height: 1.55; color: rgba(255,255,255,.85); }
   /* ---------- 우리 교실 이야기 (학년별 사진·영상) ---------- */
   .story { flex: 1; min-height: 0; display: flex; flex-direction: column; }
   .grades { flex-shrink: 0; display: flex; flex-wrap: wrap; gap: .5rem; padding: 1.4rem 3.4rem 1.2rem; }
@@ -319,6 +322,7 @@
   .grades button.on { background: var(--g1); border-color: var(--g1); color: #fff; }
   .gallery { flex: 1; min-height: 0; overflow: auto; padding: .4rem 3.4rem 3rem;
              display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.2rem; align-content: start; grid-auto-rows: max-content; }
+  .gallery .empty { grid-column: 1 / -1; padding: 5rem 0; text-align: center; font-size: 1.3rem; color: var(--ink-2); }
   .gallery button { position: relative; display: block; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,.08);
                     border: 1px solid var(--line); transition: transform .25s cubic-bezier(.2,.75,.2,1); }
   .gallery button:active { transform: scale(.97); }
@@ -433,67 +437,64 @@ const EXHIBIT = {
   siteUrl: 'https://sites.google.com/view/majangcho26/home',
   siteLabel: '연구학교 홈페이지',
   halls: [
-    { id: 'intro',   name: '연구학교<br>소개관',                en: 'ABOUT',    desc: '연구학교 홈페이지에서 연구학교의 전체 흐름을 살펴봐요.',
+    { id: 'intro',   name: '연구학교<br>소개관',                en: 'ABOUT',    desc: '연구학교 홈페이지에서<br>연구학교의 전체 흐름을<br>살펴볼 수 있습니다.',
       colors: ['#c94a73', '#eb97b0'], tint: ['#cf3a71', '#e8629a'], shot: ['#fde7ef', '#fef6f9'], icon: 'school',
       link: 'https://sites.google.com/view/majangcho26/home' },   // 연구학교 홈페이지 (새 창)
 
-    { id: 'student', name: 'Hi\u00a0AI와 성장하는<br>학생 High\u00a05',  en: 'STUDENTS', desc: 'Hi AI 소개와, AI와 함께 탐구하고 표현한 우리 교실 이야기',
-      colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'lesson',
-      lead: 'Hi AI를 알아보고, AI와 함께 탐구하고 표현한 우리 교실 이야기를 만나 보세요.',
+    { id: 'student', name: 'Hi\u00a0AI와 성장하는<br>학생 High\u00a05',  en: 'STUDENTS', desc: 'Hi AI 소개 및<br>AI와 함께 탐구하고 표현한<br>우리 교실 이야기',
+      colors: ['#1f74c4', '#6cb3ef'], tint: ['#1a6cc4', '#3a92e2'], shot: ['#e2eefb', '#f3f8fd'], icon: 'lesson',
+      lead: 'Hi AI를 알아보고, AI와 함께 탐구하고 표현한 우리 교실 이야기를 만나 보실 수 있습니다.',
       // 연구보고서 'High 5' 정의에서 가져온 설명
       high5: {
         title: '학생 High 5',
-        intro: 'OECD 학습나침반 2030과 2022 개정 교육과정의 핵심 역량을 바탕으로, 우리 학교 학생들이 수업 속에서 기르는 다섯 가지 역량이에요.',
+        intro: 'OECD 학습나침반 2030과 2022 개정 교육과정의 핵심 역량을 바탕으로, 우리 학교 학생들이 수업 속에서 기르는 다섯 가지 역량입니다.',
         items: [
-          { name: '창의적 문제해결', desc: '배운 개념을 새로운 상황에 적용해 문제를 해결해요' },
-          { name: '의사소통',       desc: '자신의 생각을 분명하게 표현하고 나눠요' },
-          { name: '자기주도',       desc: '스스로 질문하고 탐구하며 배워요' },
-          { name: '공동체',         desc: '디지털 공간에서도 책임 있는 구성원으로 행동해요' },
-          { name: '비판적 사고',     desc: 'AI가 만든 정보를 비판적으로 검증해요' },
+          { name: '창의적 문제해결', desc: '배운 개념을 새로운 상황에 적용해 문제를 해결합니다' },
+          { name: '의사소통',       desc: '자신의 생각을 분명하게 표현하고 나눕니다' },
+          { name: '자기주도',       desc: '스스로 질문하고 탐구하며 배웁니다' },
+          { name: '공동체',         desc: '디지털 공간에서도 책임 있는 구성원으로 행동합니다' },
+          { name: '비판적 사고',     desc: 'AI가 만든 정보를 비판적으로 검증합니다' },
         ] },
       boards: [
         { id: 'about', name: 'Hi AI 소개', tag: 'Hi AI 알아보기', icon: 'robot',
-          what: 'Hi AI가 무엇인지, 수업 속에서 학생 한 명 한 명을 어떻게 돕는지 소개해요.',
-          colors: ['#0f7d52', '#27a372'],
+          what: 'Hi AI가 무엇인지,<br>수업 속에서 학생 한 명 한 명을 어떻게 돕는지<br>소개합니다.',
+          colors: ['#1557c8', '#3a83ec'],
           links: [{ id: 'hiai', label: 'Hi AI 소개', view: 'hiai' }] },          // 아래 HIAI 내용이 나옵니다
         { id: 'story', name: '우리 교실 이야기', tag: '학생 디지털 활동', icon: 'lesson',
-          what: '1학년부터 6학년, 영어 수업까지 — 학년별 디지털 수업 사진과 영상을 만나요.',
-          colors: ['#0d7468', '#23988a'],
+          what: '학년별 디지털 수업 사진과 영상을<br>만나 보실 수 있습니다.',
+          colors: ['#2348b8', '#4a74e0'],
           links: [{ id: 'story', label: '우리 교실 이야기', view: 'story' }] },  // 아래 STORY 사진·영상이 나옵니다
       ] },
 
-    { id: 'teacher', name: 'Hi\u00a0AI와 성장하는<br>교사 High\u00a05',  en: 'TEACHERS', desc: 'Hi AI 수업 설계 체험과 선생님들의 Vibe ON · AI 교사동아리 자료집',
+    { id: 'teacher', name: 'Hi\u00a0AI와 성장하는<br>교사 High\u00a05',  en: 'TEACHERS', desc: '교사가 바이브 코딩으로 만든 수업 자료와<br>AI 에듀테크 교사 동아리 자료집',
       colors: ['#d1701f', '#f0a357'], tint: ['#cf6413', '#ea8b33'], shot: ['#fdeeda', '#fef8f1'], icon: 'people',
-      lead: 'Hi AI 개념기반 탐구학습 수업을 직접 설계해 보고, 선생님들이 함께 만든 자료를 만나 보세요.',
+      lead: '선생님들이 직접 만들고 함께 나눈 자료를 만나 보실 수 있습니다.',
       // 연구보고서 'High 5' 정의에서 가져온 설명
       high5: {
         title: '교사 High 5',
-        intro: '교실 혁명의 핵심 가치를 바탕으로, AI 시대에 선생님이 갖추고 발휘하는 다섯 가지 역량이에요.',
+        intro: '교실 혁명의 핵심 가치를 바탕으로, AI 시대에 선생님이 갖추고 발휘하는 다섯 가지 역량입니다.',
         items: [
-          { name: '존엄성', desc: '학생마다의 다름을 존중해요' },
-          { name: '전문성', desc: '개념기반 탐구수업을 설계하고 평가해요' },
-          { name: '개별화', desc: '학습 데이터를 바탕으로 개별 지도해요' },
-          { name: '주도성', desc: '수업 설계자로서 주체적으로 판단해요' },
-          { name: '협력',   desc: '동료 교사와 함께 수업을 연구해요' },
+          { name: '존엄성', desc: '학생마다의 다름을 존중합니다' },
+          { name: '전문성', desc: '개념기반 탐구수업을<br>설계하고 평가합니다' },
+          { name: '개별화', desc: '학습 데이터를 바탕으로 개별 지도합니다' },
+          { name: '주도성', desc: '수업 설계자로서 주체적으로 판단합니다' },
+          { name: '협력',   desc: '동료 교사와 함께 수업을 연구합니다' },
         ] },
       boards: [
-        { id: 'design', name: '개념기반 탐구학습<br>수업 설계 체험', tag: 'Hi AI 수업 설계', icon: 'pencil', by: '김나영 선생님',
-          what: 'Hi AI로 개념기반 탐구학습 수업을 직접 설계해 보는 체험이에요.',
-          colors: ['#c4560f', '#ec8a2e'],
-          links: [{ id: 'design', label: '수업 설계 체험', url: 'https://lesson.ssambox.com/', newTab: true }] },
-          // ↑ 로그인(비밀번호)이 걸린 사이트라 전시관 안이 아닌 새 창으로 엽니다
-        { id: 'share', name: '교사 Vibe ON &amp;<br>AI 교사동아리 자료집', tag: '함께 성장하는 선생님', icon: 'people', by: '김나영 · 송태용 선생님',
-          what: '바이브 코딩으로 직접 만든 수업 자료와 AI 교사동아리 자료집을 소개해요.',
+        { id: 'vibe', name: '교사 Vibe ON<br>수업 자료', tag: '바이브 코딩', icon: 'code',
+          what: '선생님들이 바이브 코딩으로 직접 만든 교수·학습 자료입니다.',
           chips: ['#교사 주도성', '#학생 맞춤형 수업'],
+          colors: ['#c4560f', '#ec8a2e'],
+          links: [{ id: 'vibe', label: '교사 Vibe ON 수업 자료', url: 'https://padlet.com/embed/lkqusx1e86deevog' }] },   // 2026 마장 VIBE ON 패들렛
+        { id: 'club', name: 'AI 에듀테크<br>교사 동아리 자료집', tag: '함께 성장하는 선생님', icon: 'people',
+          what: 'AI 에듀테크를 함께 공부하고<br>수업을 나누며 성장한 선생님들의 자료집입니다.',
+          chips: ['#함께 성장', '#수업 나눔'],
           colors: ['#b8402f', '#e2705a'],
-          links: [
-            { id: 'vibe', label: '마장 Vibe ON',        url: 'https://padlet.com/embed/lkqusx1e86deevog' },   // 2026 마장 VIBE ON 패들렛
-            { id: 'club', label: 'AI 교사동아리 자료집', url: 'https://padlet.com/embed/s023leshyly7poik17fj' }, // AI 에듀테크 교사 동아리 패들렛
-          ] },
+          links: [{ id: 'club', label: 'AI 에듀테크 교사 동아리 자료집', url: 'https://padlet.com/embed/s023leshyly7poik17fj' }] },  // AI 에듀테크 교사 동아리 패들렛
       ] },
 
-    { id: 'video',   name: '연구학교<br>영상관',                en: 'VIDEO',    desc: '교육활동 현장을 영상으로 생생하게 만나요.',
-      colors: ['#1f74c4', '#6cb3ef'], tint: ['#1a6cc4', '#3a92e2'], shot: ['#e2eefb', '#f3f8fd'], icon: 'play',
+    { id: 'video',   name: '연구학교<br>영상관',                en: 'VIDEO',    desc: '교육활동 현장을 영상으로 생생하게<br>만나 보실 수 있습니다.',
+      colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'play',
       url: 'https://www.youtube-nocookie.com/embed/sIxWlQljAe4?rel=0&playsinline=1&enablejsapi=1', dark: true },   // enablejsapi=1 : 소리 크기 조절용
   ],
   // 동영상 소리 크기 (0~100). 우리 교실 이야기 영상과 영상관 유튜브 영상에 모두 쓰입니다.
@@ -507,14 +508,14 @@ const EXHIBIT = {
 const HIAI = {
   // 첫머리 글 — 한 줄이 한 문단, <br> 자리에서 줄이 바뀝니다
   intro: [
-    'Hi AI는 AI·디지털 기반 교육자료와 AI 코스웨어를 활용하여<br>학생 한 명 한 명에게 맞춘 배움을 돕는<br>「Hi AI, High 5」 수업 모델의 <b>지원 원리</b>입니다.',
-    'AI로 진단하고 분석하는 <b class="c1">하이티칭</b>과<br>교사의 정서적 교감이 담긴 <b class="c2">하이코칭</b>을<br><b class="c3">개념기반 탐구학습</b>과 결합하였습니다.',
+    'Hi AI는 AI·디지털 기반 교육자료와 AI 코스웨어를 활용하여 학생 한 명 한 명에게 맞춘 배움을 돕는<br>「Hi AI, High 5」 수업 모델의 <b>지원 원리</b>입니다.',
+    'AI로 진단하고 분석하는 <b class="c1">하이티칭</b>과 교사의 정서적 교감이 담긴 <b class="c2">하이코칭</b>을<br><b class="c3">개념기반 탐구학습</b>과 결합하였습니다.',
   ],
   // rgb : 칸 색 (빨강,초록,파랑)
   principles: [
     { icon: 'lesson', rgb: '94,164,255',  name: '하이티칭', en: 'Hi-teaching',   desc: 'AI로 학습을 진단하고 학생에게 맞는 학습 경로를 설계합니다.' },
     { icon: 'people', rgb: '255,126,182', name: '하이코칭', en: 'Hi-coaching',   desc: '교사가 정서적 교감으로 학생의 동기와 성장을 돕습니다.' },
-    { icon: 'robot',  rgb: '255,198,92',  name: '탐구기반', en: 'Inquiry-based', desc: '학생이 개념을 중심으로<br>질문하고 탐구합니다.' },
+    { icon: 'robot',  rgb: '255,198,92',  name: '탐구기반', en: 'Inquiry-based', desc: '학생이 개념을 중심으로 질문하고 탐구합니다.' },
   ],
   design:  { rgb: '77,212,198',  name: '수업 설계', desc: '교육과정을 분석하고<br>학생의 인지·정서를 진단하여<br>개별화 전략과<br>AI 학습 지원 유형을 정합니다.' },
   run:     { rgb: '166,139,255', name: '개념기반 탐구수업 실행',
@@ -526,11 +527,11 @@ const HIAI = {
   review:  { rgb: '255,143,122', name: '수업 평가 및 성찰', desc: '학생의 인지·정서 변화를 살피고<br>그 결과를<br>다음 수업 설계에 반영합니다.' },
   types: [
     { rgb: '94,200,255',  name: 'AI·디지털 기반<br>교육자료 활용형', tools: '캔바 AI, 패들렛 등 다양한 에듀테크',
-      support: '학생의 표현과 창작,<br>협업을 돕습니다.', goal: '표현·창작 등<br>학생마다 다른 산출물을 만듭니다.' },
+      support: '학생의 표현과 창작, 협업을 돕습니다.', goal: '표현·창작 등 학생마다 다른 산출물을 만듭니다.' },
     { rgb: '123,228,149', name: 'AI 기반<br>코스웨어 활용형', tools: 'AI 교수·학습 플랫폼, 똑똑수학탐험대 등',
-      support: '학습 데이터를 바탕으로<br>맞춤형 학습과 피드백을 제공합니다.', goal: '개념 이해와<br>정답이 있는 판단을 진단합니다.' },
+      support: '학습 데이터를 바탕으로<br>맞춤형 학습과 피드백을 제공합니다.', goal: '개념 이해와 정답이 있는 판단을 진단합니다.' },
     { rgb: '255,179,92',  name: '교육자료 & 코스웨어<br>통합형', tools: '에듀테크와 코스웨어의 통합 활용',
-      support: '여러 교과를 잇는<br>융합 수업에서 활용합니다.', goal: '한 단원에서 개념 이해와<br>표현·창작을 함께 지원합니다.' },
+      support: '여러 교과를 잇는 융합 수업에서 활용합니다.', goal: '한 단원에서 개념 이해와 표현·창작을 함께 지원합니다.' },
   ],
 };
 
@@ -595,6 +596,9 @@ const STORY = [
     ['08', 'v', '오조봇 길 만들고 따라가기'],
     ['09', 'p', '오조봇 코딩 체험'],
     ['10', 'v', '오조타워'],
+  ] },
+  { key: 'g5', label: '5학년', items: [
+    // 사진·영상이 들어오면 files/story/g5/ 에 넣고 여기에 적습니다
   ] },
   { key: 'g6', label: '6학년', items: [
     ['01', 'p', '하이러닝 수업'],
@@ -680,7 +684,7 @@ function renderHome() {
           </button>`).join('')}
       </section>
 
-      <div class="hint rise" style="--i:7">보고 싶은 전시관을 눌러 보세요 ${icon('open')}</div>
+      <div class="hint rise" style="--i:7">보고 싶은 전시관을 눌러 주십시오 ${icon('open')}</div>
     </div>`;
   setActive(0);
   startAuto();
@@ -747,7 +751,7 @@ const soon = (ic, title) => `
   <div class="soon">
     <div class="glow">${icon(ic)}</div>
     <h2>${title}</h2>
-    <p>전시 내용을 준비하고 있어요.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
+    <p>전시 내용을 준비하고 있습니다.<br>곧 이곳에서 만나 보실 수 있습니다.</p>
   </div>`;
 
 function openInner(hall, { body, dark = false, backLabel = '처음으로', backTo = '', seg = '' }) {
@@ -829,17 +833,17 @@ const VIEWS = {
       <section class="rise"><p class="kicker">HI AI</p><h2><span class="hi">Hi AI</span>란?</h2>
         <div class="intro">${H.intro.map(t => `<p>${t}</p>`).join('')}</div></section>
       <section class="rise" style="--i:1"><h3>세 가지 지원 원리</h3>
-        <div class="tiles">${H.principles.map(x => `
+        <div class="tiles one-line">${H.principles.map(x => `
           <div class="tile" ${c(x)}><span class="no">${icon(x.icon)}</span><h4>${x.name}<small>${x.en}</small></h4><p>${x.desc}</p></div>`).join('')}
         </div></section>
-      <section class="rise" style="--i:2"><h3>수업의 흐름<small>수업 설계 → 개념기반 탐구수업 실행 → 수업 평가 및 성찰</small></h3>
+      <section class="rise" style="--i:2"><h3>수업의 흐름</h3>
         <div class="flow">
-          <div class="tile" ${c(H.design)}><span class="no">1</span><h4>${H.design.name}</h4><p>${H.design.desc}</p></div>
-          <div class="tile" ${c(R)}><span class="no">2</span><h4>${R.name}</h4>
+          <div class="tile" ${c(H.design)}><div class="head"><span class="no">1</span><h4>${H.design.name}</h4></div><p>${H.design.desc}</p></div>
+          <div class="tile" ${c(R)}><div class="head"><span class="no">2</span><h4>${R.name}</h4></div>
             <div class="steps">${step(R.first)}
               <div class="deep"><b>깊이 탐구하기</b><div>${R.deep.map(step).join('')}</div></div>
               ${step(R.last)}</div></div>
-          <div class="tile" ${c(H.review)}><span class="no">3</span><h4>${H.review.name}</h4><p>${H.review.desc}</p></div>
+          <div class="tile" ${c(H.review)}><div class="head"><span class="no">3</span><h4>${H.review.name}</h4></div><p>${H.review.desc}</p></div>
         </div></section>
       <section class="rise" style="--i:3"><h3>학습 도달점에 따른 AI 학습 지원 유형</h3>
         <div class="tiles">${H.types.map((x, n) => `
@@ -853,7 +857,7 @@ const VIEWS = {
     return `
     <div class="story">
       <div class="grades">${STORY.map(g => `
-        <button class="${g.key === storyGrade ? 'on' : ''}" data-grade="${g.key}">${g.label}<small>${g.items.length}</small></button>`).join('')}
+        <button class="${g.key === storyGrade ? 'on' : ''}" data-grade="${g.key}">${g.label}</button>`).join('')}
       </div>
       <div class="gallery" id="gallery">${galleryHtml()}</div>
     </div>`;
@@ -865,6 +869,7 @@ const gradeOf = key => STORY.find(g => g.key === key);
 const storySrc = (g, it, small) => `files/story/${g.key}/${small ? 'thumb/' : ''}${it[0]}.${small || it[1] === 'p' ? 'jpg' : 'mp4'}`;
 function galleryHtml() {
   const g = gradeOf(storyGrade);
+  if (!g.items.length) return `<p class="empty">${g.label} 사진과 영상을 준비하고 있습니다.</p>`;
   return g.items.map((it, i) => `
     <button data-shot="${i}">
       <img src="${storySrc(g, it, true)}" alt="" loading="lazy">
