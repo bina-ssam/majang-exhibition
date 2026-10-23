@@ -495,9 +495,9 @@ const EXHIBIT = {
 
     { id: 'video',   name: '연구학교<br>영상관',                en: 'VIDEO',    desc: '교육활동 현장을 영상으로 생생하게<br>만나 보실 수 있습니다.',
       colors: ['#2e8c5f', '#6fc698'], tint: ['#11885a', '#2aab7a'], shot: ['#e4f5ec', '#f4fbf7'], icon: 'play',
-      url: 'https://www.youtube-nocookie.com/embed/sIxWlQljAe4?rel=0&playsinline=1&enablejsapi=1', dark: true },   // enablejsapi=1 : 소리 크기 조절용
+      url: 'https://www.youtube-nocookie.com/embed/LAfQCJ2Mypg?rel=0&playsinline=1&enablejsapi=1', dark: true, volume: 70 },   // 연구학교 홍보영상 (에듀페스타) · 소리 70 · enablejsapi=1 : 소리 크기 조절용
   ],
-  // 동영상 소리 크기 (0~100). 우리 교실 이야기 영상과 영상관 유튜브 영상에 모두 쓰입니다.
+  // 동영상 소리 크기 (0~100). 우리 교실 이야기 영상에 쓰입니다. 영상관은 위 video 칸의 volume 을 씁니다.
   videoVolume: 10,
   // 아무도 손대지 않을 때 카드가 저절로 넘어가는 간격(초). 0 으로 적으면 넘어가지 않습니다.
   autoSeconds: 4.5,
@@ -739,7 +739,7 @@ function route() {
     body: hall.url ? framed(hall.url) : soon(hall.icon, plain(hall.name)),
     dark: hall.dark,                                   // 영상은 검은 바탕
   });
-  if (/youtube/.test(hall.url || '')) setYoutubeVolume(ibody.querySelector('iframe'));
+  if (/youtube/.test(hall.url || '')) setYoutubeVolume(ibody.querySelector('iframe'), hall.volume ?? EXHIBIT.videoVolume);
 }
 window.addEventListener('hashchange', route);
 
@@ -815,10 +815,10 @@ function openBoard(hall, board, link) {
 }
 
 /* 유튜브 영상 소리 크기 — 플레이어가 준비되는 시간이 들쭉날쭉해서 몇 번 나눠 보냅니다 */
-function setYoutubeVolume(frame) {
+function setYoutubeVolume(frame, volume) {
   if (!frame) return;
   const send = () => frame.contentWindow?.postMessage(JSON.stringify(
-    { event: 'command', func: 'setVolume', args: [EXHIBIT.videoVolume] }), '*');
+    { event: 'command', func: 'setVolume', args: [volume] }), '*');
   frame.addEventListener('load', () => [300, 1000, 2500, 5000].forEach(t => setTimeout(send, t)));
 }
 
